@@ -1,0 +1,1949 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMSI KEPRI - Serikat Media Siber Indonesia Provinsi Kepulauan Riau</title>
+    <!-- Meta SEO & Social Cards -->
+    <meta name="description" content="Portal Resmi Serikat Media Siber Indonesia (SMSI) Provinsi Kepulauan Riau - Membangun Ekosistem Media Siber yang Profesional dan Berintegritas.">
+    <meta property="og:title" content="SMSI KEPRI - Serikat Media Siber Indonesia">
+    <meta property="og:description" content="Wadah Organisasi Perusahaan Media Siber di Kepulauan Riau">
+    <meta property="og:type" content="website">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Google Fonts: Inter & Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js for Admin Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --navy-main: #0B2545;
+            --navy-dark: #06172E;
+            --blue-accent: #134074;
+            --blue-light: #0077B6;
+            --gold-accent: #D4AF37;
+            --light-bg: #F8F9FA;
+            --card-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+            --transition-standard: all 0.25s ease-in-out;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #333333;
+            background-color: #F4F6F9;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6, .font-heading {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Top Bar styling */
+        .top-bar {
+            background-color: var(--navy-dark);
+            color: #d1d5db;
+            font-size: 0.825rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .top-bar a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: var(--transition-standard);
+        }
+
+        .top-bar a:hover {
+            color: #ffffff;
+        }
+
+        /* Main Header Header */
+        .main-header {
+            background: #ffffff;
+            border-bottom: 2px solid #e9ecef;
+            padding: 12px 0;
+        }
+
+        .brand-logo-img {
+            height: 52px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .brand-title-main {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--navy-main);
+            line-height: 1.1;
+            letter-spacing: 0.5px;
+        }
+
+        .brand-title-sub {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--blue-light);
+            letter-spacing: 1.5px;
+        }
+
+        /* Navbar Styling */
+        .navbar-smsi {
+            background-color: var(--navy-main);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            padding: 0;
+        }
+
+        .navbar-smsi .nav-link {
+            color: #f1f5f9;
+            font-weight: 500;
+            font-size: 0.925rem;
+            padding: 14px 16px !important;
+            transition: var(--transition-standard);
+            border-bottom: 3px solid transparent;
+        }
+
+        .navbar-smsi .nav-link:hover, 
+        .navbar-smsi .nav-link.active {
+            color: #ffffff;
+            background-color: rgba(255,255,255,0.07);
+            border-bottom-color: var(--gold-accent);
+        }
+
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-radius: 8px;
+            padding: 8px;
+        }
+
+        .dropdown-item {
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 9px 16px;
+            border-radius: 6px;
+            transition: var(--transition-standard);
+        }
+
+        .dropdown-item:hover {
+            background-color: #f0f7ff;
+            color: var(--navy-main);
+            transform: translateX(4px);
+        }
+
+        /* Hero Section */
+        .hero-banner {
+            position: relative;
+            background: linear-gradient(135deg, rgba(11, 37, 69, 0.92), rgba(6, 23, 46, 0.85)), 
+                        url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            color: white;
+            padding: 90px 0 110px;
+            overflow: hidden;
+        }
+
+        .hero-banner::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: #F4F6F9;
+            clip-path: polygon(0 100%, 100% 100%, 100% 0);
+        }
+
+        .badge-tagline {
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid var(--gold-accent);
+            color: #fde047;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-radius: 50px;
+            display: inline-block;
+            font-size: 0.825rem;
+        }
+
+        /* Card Custom Styles */
+        .card-custom {
+            border: none;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            background: #ffffff;
+            transition: var(--transition-standard);
+            height: 100%;
+        }
+
+        .card-custom:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+
+        /* News Cards */
+        .news-img-holder {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .news-img-holder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card-custom:hover .news-img-holder img {
+            transform: scale(1.06);
+        }
+
+        .news-category-badge {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background-color: var(--navy-main);
+            color: #ffffff;
+            font-size: 0.725rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Sidebar Component */
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--navy-main);
+            border-bottom: 2px solid var(--navy-main);
+            padding-bottom: 8px;
+            margin-bottom: 18px;
+            position: relative;
+        }
+
+        .sidebar-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--gold-accent);
+        }
+
+        /* Stats Counter */
+        .stat-card {
+            background: linear-gradient(135deg, var(--navy-main), var(--blue-accent));
+            color: white;
+            padding: 30px 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(11, 37, 69, 0.2);
+            transition: var(--transition-standard);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .stat-icon {
+            font-size: 2.2rem;
+            color: var(--gold-accent);
+            margin-bottom: 12px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 2px;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.9;
+        }
+
+        /* Media Directory Table */
+        .table-directory img {
+            width: 38px;
+            height: 38px;
+            object-fit: contain;
+            border-radius: 6px;
+            background: #fff;
+            padding: 2px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .badge-status-aktif {
+            background-color: #d1fae5;
+            color: #065f46;
+            font-weight: 600;
+        }
+        .badge-status-pending {
+            background-color: #fef3c7;
+            color: #92400e;
+            font-weight: 600;
+        }
+        .badge-status-nonaktif {
+            background-color: #fee2e2;
+            color: #991b1b;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer-main {
+            background-color: var(--navy-dark);
+            color: #94a3b8;
+            padding: 60px 0 0;
+            font-size: 0.9rem;
+        }
+
+        .footer-title {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--gold-accent);
+        }
+
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: var(--transition-standard);
+        }
+
+        .footer-links a:hover {
+            color: #ffffff;
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            background-color: #030a14;
+            padding: 20px 0;
+            margin-top: 50px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.825rem;
+        }
+
+        /* Admin Dashboard specific styling */
+        .admin-sidebar {
+            min-height: 100vh;
+            background-color: var(--navy-dark);
+            color: #cbd5e1;
+        }
+
+        .admin-nav-item {
+            padding: 12px 20px;
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-left: 4px solid transparent;
+            transition: var(--transition-standard);
+        }
+
+        .admin-nav-item:hover, .admin-nav-item.active {
+            background-color: rgba(255,255,255,0.06);
+            color: #ffffff;
+            border-left-color: var(--gold-accent);
+        }
+
+        /* Utility Helper View toggling */
+        .view-section {
+            display: none;
+        }
+        .view-section.active-view {
+            display: block;
+            animation: fadeIn 0.35s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Modal Custom Styling */
+        .modal-header-smsi {
+            background-color: var(--navy-main);
+            color: #ffffff;
+        }
+
+        /* Gallery Grid */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            height: 220px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(11,37,69,0.85), transparent);
+            display: flex;
+            align-items: flex-end;
+            padding: 15px;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 991.98px) {
+            .brand-title-main { font-size: 1.05rem; }
+            .brand-title-sub { font-size: 0.75rem; }
+            .hero-banner { padding: 50px 0 70px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOPBAR -->
+    <div class="top-bar py-2">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-3">
+                <span><i class="far fa-calendar-alt me-1 text-warning"></i> <span id="current-date-str">Kamis, 5 November 2026</span></span>
+                <span class="d-none d-md-inline">|</span>
+                <span class="d-none d-md-inline"><i class="far fa-envelope me-1 text-warning"></i> sekretariat@smsikepri.or.id</span>
+                <span class="d-none d-lg-inline">|</span>
+                <span class="d-none d-lg-inline"><i class="fas fa-phone-alt me-1 text-warning"></i> +62 812-7000-8899</span>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <div class="social-links d-flex gap-2">
+                    <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" title="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+                <button class="btn btn-sm btn-outline-warning text-white ms-2 py-0 px-2 font-heading" style="font-size:0.75rem" onclick="switchView('admin-view')">
+                    <i class="fas fa-user-lock me-1"></i> Admin Portal
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN HEADER -->
+    <header class="main-header" id="public-header">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="#" class="d-flex align-items-center gap-3 text-decoration-none" onclick="switchView('home-view')">
+                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 54px; height: 54px; background: linear-gradient(135deg, #0B2545, #134074) !important;">
+                    <i class="fas fa-globe-asia fa-2x text-warning"></i>
+                </div>
+                <div>
+                    <div class="brand-title-main">SERIKAT MEDIA SIBER INDONESIA</div>
+                    <div class="brand-title-sub">PROVINSI KEPULAUAN RIAU</div>
+                </div>
+            </a>
+            <div class="d-none d-md-flex align-items-center gap-3">
+                <div class="input-group shadow-sm" style="width: 250px;">
+                    <input type="text" class="form-control form-control-sm" id="global-search-input" placeholder="Cari Berita / Media...">
+                    <button class="btn btn-primary btn-sm bg-navy" type="button" onclick="handleGlobalSearch()"><i class="fas fa-search"></i></button>
+                </div>
+                <button class="btn btn-warning text-navy font-heading fw-semibold btn-sm shadow-sm" onclick="switchView('directory-view')">
+                    <i class="fas fa-list-check me-1"></i> Direktori Media
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAVBAR NAVIGATION -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-smsi sticky-top" id="public-navbar">
+        <div class="container">
+            <button class="navbar-toggler my-2 ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="nav-home" href="#" onclick="switchView('home-view')"><i class="fas fa-home me-1"></i> Beranda</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropProfil" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Profil
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropProfil">
+                            <li><a class="dropdown-item" href="#" onclick="switchView('profile-view')">Tentang SMSI Kepri</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="switchView('profile-view')">Sejarah & Peran</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="switchView('profile-view')">Visi & Misi</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="switchView('profile-view')">Tujuan Organisasi</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropPengurus" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Kepengurusan
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropPengurus">
+                            <li><a class="dropdown-item" href="#" onclick="switchView('leadership-view')">Pengurus Provinsi</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="switchView('leadership-view')">Pengurus Kabupaten / Kota</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropAnggota" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Anggota
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropAnggota">
+                            <li><a class="dropdown-item" href="#" onclick="switchView('directory-view')">Direktori Media</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="switchView('directory-view')">Media Terdaftar</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item font-heading fw-bold text-primary" href="#" data-bs-toggle="modal" data-bs-target="#modalRegisterMedia"><i class="fas fa-file-signature me-1"></i> Pendaftaran Anggota Baru</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropBerita" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Berita
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropBerita">
+                            <li><a class="dropdown-item" href="#" onclick="switchView('news-list-view')">Berita SMSI</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="switchView('news-list-view')">Kegiatan Organisasi</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="switchView('news-list-view')">Siaran Pers</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="switchView('agenda-view')">Agenda & Program</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="switchView('gallery-view')">Galeri</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="scrollToFooter()">Kontak</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-2">
+                    <button class="btn btn-outline-light btn-sm rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#modalRegisterMedia">
+                        <i class="fas fa-paper-plane me-1"></i> Gabung SMSI
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN VIEW CONTAINER -->
+    <main id="main-content">
+
+        <!-- ================= PAGE 1: HOME VIEW ================= -->
+        <div id="home-view" class="view-section active-view">
+            <!-- HERO BANNER SECTION -->
+            <section class="hero-banner">
+                <div class="container position-relative z-1">
+                    <div class="row align-items-center">
+                        <div class="col-lg-8">
+                            <span class="badge-tagline mb-3"><i class="fas fa-shield-alt me-1"></i> Organisasi Perusahaan Media Siber Terbesar</span>
+                            <h1 class="display-5 fw-bold mb-3 font-heading text-white">SERIKAT MEDIA SIBER INDONESIA PROVINSI KEPULAUAN RIAU</h1>
+                            <p class="lead text-light mb-4 opacity-90">Membangun ekosistem pers dan media siber yang profesional, berintegritas, mandiri, dan tepercaya di Tanah Bunda Melayu Provinsi Kepulauan Riau.</p>
+                            <div class="d-flex flex-wrap gap-3">
+                                <a href="#" class="btn btn-warning btn-lg fw-bold font-heading px-4 shadow" onclick="switchView('profile-view')">
+                                    <i class="fas fa-building me-2"></i> Tentang SMSI Kepri
+                                </a>
+                                <a href="#" class="btn btn-outline-light btn-lg font-heading px-4" onclick="switchView('directory-view')">
+                                    <i class="fas fa-search me-2"></i> Direktori Media Anggota
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STATISTIK BANNER (COUNTER SECTION) -->
+            <section class="container my-5">
+                <div class="row g-3">
+                    <div class="col-6 col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-newspaper"></i></div>
+                            <div class="stat-number" id="stat-media-count">142</div>
+                            <div class="stat-label">Media Anggota</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-map-marked-alt"></i></div>
+                            <div class="stat-number" id="stat-city-count">7</div>
+                            <div class="stat-label">Kabupaten / Kota</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-users"></i></div>
+                            <div class="stat-number" id="stat-pengurus-count">65</div>
+                            <div class="stat-label">Pengurus Daerah</div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+                            <div class="stat-number" id="stat-kegiatan-count">98</div>
+                            <div class="stat-label">Kegiatan terlaksana</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BERITA UTAMA & RECENT NEWS (MAIN CONTENT + SIDEBAR) -->
+            <section class="container py-4">
+                <div class="row g-4">
+                    <!-- MAIN LEFT COLUMN (Berita) -->
+                    <div class="col-lg-8">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="font-heading fw-bold text-navy m-0"><i class="fas fa-newspaper text-warning me-2"></i> Berita Utama & Informasi</h3>
+                            <a href="#" class="btn btn-sm btn-outline-primary" onclick="switchView('news-list-view')">Lihat Semua Berita <i class="fas fa-arrow-right ms-1"></i></a>
+                        </div>
+
+                        <!-- FEATURED NEWS (BIG) -->
+                        <div class="card card-custom overflow-hidden mb-4 shadow-sm" onclick="openNewsDetail(1)" style="cursor: pointer;">
+                            <div class="row g-0">
+                                <div class="col-md-7 position-relative">
+                                    <img src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=800&q=80" class="img-fluid h-100 w-100" style="object-fit: cover; min-height: 260px;" alt="Berita Utama SMSI">
+                                    <span class="news-category-badge">Siaran Pers</span>
+                                </div>
+                                <div class="col-md-5 d-flex align-items-center">
+                                    <div class="card-body p-4">
+                                        <div class="text-muted small mb-2"><i class="far fa-clock me-1"></i> 5 November 2026 | Oleh: Humas SMSI Kepri</div>
+                                        <h4 class="card-title font-heading fw-bold text-navy h5 mb-3">SMSI Kepri Dorong Digitalisasi Media Lokal & Pemutakhiran Database Keanggotaan Perusahaan Pers</h4>
+                                        <p class="card-text text-muted small">SMSI Provinsi Kepulauan Riau memperkuat koordinasi bersama Dinas Kominfo dan instansi pemerintah daerah untuk membangun ekosistem siber yang sehat...</p>
+                                        <span class="text-primary font-heading fw-semibold small">Baca Selengkapnya <i class="fas fa-chevron-right ms-1"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- NEWS CARDS GRID (3 Items) -->
+                        <div class="row g-4" id="home-news-grid">
+                            <!-- Injected by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- RIGHT COLUMN (SIDEBAR) -->
+                    <div class="col-lg-4">
+                        <div class="sticky-top" style="top: 90px; z-index: 5;">
+                            <!-- Sidebar Widget 1: Search -->
+                            <div class="card card-custom p-4 mb-4">
+                                <h5 class="sidebar-title">Pencarian Media / Berita</h5>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="sidebar-search-key" placeholder="Kata kunci...">
+                                    <button class="btn btn-primary bg-navy" onclick="handleSidebarSearch()"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Sidebar Widget 2: Profil Ringkas -->
+                            <div class="card card-custom p-4 mb-4 bg-light border">
+                                <h5 class="sidebar-title">Tentang SMSI Kepri</h5>
+                                <p class="small text-muted mb-3">SMSI (Serikat Media Siber Indonesia) Kepulauan Riau adalah wadah konstituen Dewan Pers yang menghimpun para pemilik dan pengelola perusahaan media siber berbasis digital.</p>
+                                <a href="#" class="btn btn-sm btn-navy text-white fw-bold" onclick="switchView('profile-view')">Selengkapnya Profil <i class="fas fa-arrow-circle-right ms-1"></i></a>
+                            </div>
+
+                            <!-- Sidebar Widget 3: Agenda Mendatang -->
+                            <div class="card card-custom p-4 mb-4">
+                                <h5 class="sidebar-title">Agenda Organisasi</h5>
+                                <div class="d-flex flex-column gap-3" id="sidebar-agenda-list">
+                                    <!-- Injected JS -->
+                                </div>
+                            </div>
+
+                            <!-- Sidebar Widget 4: Tautan Penting -->
+                            <div class="card card-custom p-4">
+                                <h5 class="sidebar-title">Tautan Resmi</h5>
+                                <ul class="list-unstyled mb-0 small">
+                                    <li class="mb-2"><a href="https://dewanpers.or.id" target="_blank" class="text-decoration-none text-dark"><i class="fas fa-external-link-alt text-primary me-2"></i>Dewan Pers Indonesia</a></li>
+                                    <li class="mb-2"><a href="#" class="text-decoration-none text-dark"><i class="fas fa-external-link-alt text-primary me-2"></i>Pengurus SMSI Pusat</a></li>
+                                    <li class="mb-2"><a href="https://kepriprov.go.id" target="_blank" class="text-decoration-none text-dark"><i class="fas fa-external-link-alt text-primary me-2"></i>Pemerintah Provinsi Kepri</a></li>
+                                    <li><a href="https://diskominfo.kepriprov.go.id" target="_blank" class="text-decoration-none text-dark"><i class="fas fa-external-link-alt text-primary me-2"></i>Diskominfo Kepri</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DIREKTORI MEDIA PREVIEW SECTION -->
+            <section class="bg-white py-5 border-top border-bottom">
+                <div class="container">
+                    <div class="text-center mb-5">
+                        <span class="badge bg-primary-subtle text-primary fw-bold text-uppercase px-3 py-2 rounded-pill">Anggota Terverifikasi</span>
+                        <h2 class="font-heading fw-bold text-navy mt-2">Media Anggota SMSI Kepulauan Riau</h2>
+                        <p class="text-muted">Perusahaan media siber di seluruh kabupaten/kota Provinsi Kepulauan Riau</p>
+                    </div>
+
+                    <div class="row g-4" id="home-media-cards-container">
+                        <!-- Media cards generated dynamically -->
+                    </div>
+
+                    <div class="text-center mt-5">
+                        <button class="btn btn-outline-primary btn-lg px-4 font-heading fw-bold" onclick="switchView('directory-view')">
+                            <i class="fas fa-th-list me-2"></i> Lihat Seluruh Direktori Media Anggota
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- GALERI DOCUMENTATION HIGHLIGHT -->
+            <section class="container py-5">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3 class="font-heading fw-bold text-navy m-0"><i class="fas fa-camera text-warning me-2"></i> Dokumentasi & Galeri Kegiatan</h3>
+                    <a href="#" class="btn btn-sm btn-outline-primary" onclick="switchView('gallery-view')">Lihat Galeri Lengkap <i class="fas fa-arrow-right ms-1"></i></a>
+                </div>
+                <div class="row g-3" id="home-gallery-preview">
+                    <!-- Dynamic Gallery -->
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= PAGE 2: DIREKTORI MEDIA ANGGOTA ================= -->
+        <div id="directory-view" class="view-section">
+            <div class="bg-navy text-white py-5 mb-4">
+                <div class="container">
+                    <h1 class="font-heading fw-bold mb-2">Direktori Media Anggota SMSI Kepri</h1>
+                    <p class="lead opacity-75 mb-0">Pusat Database Perusahaan Media Siber Terdaftar dan Terverifikasi di Kepulauan Riau.</p>
+                </div>
+            </div>
+
+            <div class="container mb-5">
+                <!-- Directory Control Bar -->
+                <div class="card card-custom p-4 mb-4">
+                    <div class="row g-3 align-items-center">
+                        <div class="col-md-4">
+                            <label class="form-label small fw-bold text-muted">Cari Nama Media / Perusahaan</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                <input type="text" class="form-control" id="dir-search-input" placeholder="Masukkan kata kunci..." onkeyup="filterDirectory()">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label small fw-bold text-muted">Filter Wilayah (Kabupaten/Kota)</label>
+                            <select class="form-select" id="dir-filter-city" onchange="filterDirectory()">
+                                <option value="">-- Semua Wilayah --</option>
+                                <option value="Kota Batam">Kota Batam</option>
+                                <option value="Kota Tanjungpinang">Kota Tanjungpinang</option>
+                                <option value="Kab. Bintan">Kab. Bintan</option>
+                                <option value="Kab. Karimun">Kab. Karimun</option>
+                                <option value="Kab. Natuna">Kab. Natuna</option>
+                                <option value="Kab. Lingga">Kab. Lingga</option>
+                                <option value="Kab. Kepulauan Anambas">Kab. Kepulauan Anambas</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label small fw-bold text-muted">Status Keanggotaan</label>
+                            <select class="form-select" id="dir-filter-status" onchange="filterDirectory()">
+                                <option value="">-- Semua Status --</option>
+                                <option value="Aktif">Aktif</option>
+                                <option value="Pending">Pending / Verifikasi</option>
+                                <option value="Nonaktif">Nonaktif</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-end gap-2">
+                            <button class="btn btn-outline-success w-100" onclick="exportDirectoryData('excel')" title="Export Excel"><i class="fas fa-file-excel me-1"></i> Excel</button>
+                            <button class="btn btn-outline-danger w-100" onclick="exportDirectoryData('pdf')" title="Export PDF"><i class="fas fa-file-pdf me-1"></i> PDF</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Media Table -->
+                <div class="card card-custom p-0 overflow-hidden shadow-sm">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle table-directory mb-0">
+                            <thead class="table-dark bg-navy">
+                                <tr>
+                                    <th class="ps-3" style="width: 50px;">No</th>
+                                    <th>Logo</th>
+                                    <th>Nama Media & Portal</th>
+                                    <th>Perusahaan Pengelola</th>
+                                    <th>Pemimpin Redaksi / Pimpinan</th>
+                                    <th>Kabupaten / Kota</th>
+                                    <th>Tahun</th>
+                                    <th>Status</th>
+                                    <th class="text-center" style="width: 120px;">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="directory-table-body">
+                                <!-- Dynamic content injected by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 3: DETAIL MEDIA ANGGOTA ================= -->
+        <div id="media-detail-view" class="view-section">
+            <div class="container py-5">
+                <button class="btn btn-sm btn-outline-secondary mb-4" onclick="switchView('directory-view')">
+                    <i class="fas fa-arrow-left me-1"></i> Kembali ke Direktori Media
+                </button>
+
+                <div class="card card-custom p-4 p-md-5" id="media-detail-content">
+                    <!-- Dynamic details injected via JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 4: BERITA & DETAIL BERITA ================= -->
+        <div id="news-list-view" class="view-section">
+            <div class="bg-navy text-white py-4 mb-4">
+                <div class="container">
+                    <h2 class="font-heading fw-bold m-0">Kabar & Publikasi SMSI Kepri</h2>
+                </div>
+            </div>
+            <div class="container mb-5">
+                <div class="row g-4">
+                    <div class="col-lg-8" id="all-news-container">
+                        <!-- News List -->
+                    </div>
+                    <div class="col-lg-4">
+                        <!-- Sidebar widget repeated for news view -->
+                        <div class="card card-custom p-4 mb-4">
+                            <h5 class="sidebar-title">Kategori Berita</h5>
+                            <div class="list-group list-group-flush">
+                                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">Berita SMSI Kepri <span class="badge bg-navy rounded-pill">12</span></a>
+                                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">Kegiatan Organisasi <span class="badge bg-navy rounded-pill">8</span></a>
+                                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">Siaran Pers Resmi <span class="badge bg-navy rounded-pill">15</span></a>
+                                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">Info Pers & Kebijakan <span class="badge bg-navy rounded-pill">5</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="news-detail-view" class="view-section">
+            <div class="container py-5">
+                <button class="btn btn-sm btn-outline-secondary mb-4" onclick="switchView('news-list-view')">
+                    <i class="fas fa-arrow-left me-1"></i> Kembali ke Daftar Berita
+                </button>
+                <div class="row justify-content-center">
+                    <div class="col-lg-9">
+                        <div class="card card-custom p-4 p-md-5" id="single-news-content">
+                            <!-- Injected JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 5: PROFIL ORGANISASI ================= -->
+        <div id="profile-view" class="view-section">
+            <div class="bg-navy text-white py-5 mb-5">
+                <div class="container text-center">
+                    <h1 class="font-heading fw-bold">Profil Serikat Media Siber Indonesia</h1>
+                    <p class="lead opacity-75">Provinsi Kepulauan Riau</p>
+                </div>
+            </div>
+            <div class="container mb-5">
+                <div class="row g-4 align-items-center mb-5">
+                    <div class="col-md-6">
+                        <h2 class="font-heading fw-bold text-navy mb-3">Tentang SMSI Kepri</h2>
+                        <p class="text-muted">Serikat Media Siber Indonesia (SMSI) adalah salah satu konstituen resmi Dewan Pers yang menghimpun para pemilik, pengelola, dan penanggung jawab perusahaan media siber (online) di seluruh wilayah Republik Indonesia.</p>
+                        <p class="text-muted">SMSI Provinsi Kepulauan Riau didirikan sebagai wadah komunikasi, koordinasi, dan advokasi bagi pengusaha media siber lokal agar dapat bertransformasi menjadi perusahaan pers yang sehat, profesional, patuh hukum pers, serta berkontribusi aktif dalam pembangunan daerah Kepulauan Riau.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" class="img-fluid rounded-4 shadow" alt="Pengurus SMSI">
+                    </div>
+                </div>
+
+                <div class="row g-4 mb-5">
+                    <div class="col-md-6">
+                        <div class="card card-custom p-4 bg-navy text-white h-100">
+                            <h3 class="font-heading fw-bold text-warning mb-3"><i class="fas fa-eye me-2"></i> Visi Organisasi</h3>
+                            <p class="lead" style="font-size: 1.05rem;">Terwujudnya ekosistem perusahaan media siber di Kepulauan Riau yang profesional, mandiri, berintegritas, dan mampu mengawal keberlanjutan pers nasional di era digital.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card card-custom p-4 border h-100">
+                            <h3 class="font-heading fw-bold text-navy mb-3"><i class="fas fa-bullseye me-2"></i> Misi Organisasi</h3>
+                            <ul class="text-muted ps-3 mb-0">
+                                <li class="mb-2">Mendorong standarisasi perusahaan media siber sesuai ketentuan Dewan Pers dan UU No. 40 Tahun 1999 tentang Pers.</li>
+                                <li class="mb-2">Meningkatkan kapasitas kompetensi wartawan dan pengelola media siber anggota.</li>
+                                <li class="mb-2">Membangun sinergi strategis dengan pemerintah daerah, TNI/Polri, swasta, dan pemangku kepentingan.</li>
+                                <li>Memberikan perlindungan serta advokasi hukum bagi usaha media anggota SMSI.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 6: KEPENGURUSAN ================= -->
+        <div id="leadership-view" class="view-section">
+            <div class="bg-navy text-white py-4 mb-4">
+                <div class="container">
+                    <h2 class="font-heading fw-bold m-0">Struktur Pengurus SMSI Kepri</h2>
+                    <p class="small text-light opacity-75 m-0">Periode Kepengurusan 2024 - 2029</p>
+                </div>
+            </div>
+            <div class="container mb-5">
+                <h3 class="font-heading fw-bold text-navy mb-4 border-bottom pb-2">Pengurus Harian Provinsi</h3>
+                <div class="row g-4 mb-5" id="leadership-grid">
+                    <!-- Dynamic rendering by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 7: AGENDA & PROGRAM ================= -->
+        <div id="agenda-view" class="view-section">
+            <div class="container py-5">
+                <h2 class="font-heading fw-bold text-navy mb-4">Agenda & Program Kerja SMSI Kepri</h2>
+                <div class="card card-custom p-4">
+                    <div class="list-group list-group-flush" id="full-agenda-list">
+                        <!-- JS injected -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 8: GALERI ================= -->
+        <div id="gallery-view" class="view-section">
+            <div class="container py-5">
+                <h2 class="font-heading fw-bold text-navy mb-4">Galeri Dokumentasi Kegiatan</h2>
+                <div class="row g-4" id="full-gallery-grid">
+                    <!-- JS Injected -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 9: ADMIN DASHBOARD VIEW ================= -->
+        <div id="admin-view" class="view-section">
+            <div class="container-fluid p-0">
+                <div class="row g-0">
+                    <!-- Sidebar Admin -->
+                    <div class="col-lg-2 admin-sidebar py-3">
+                        <div class="px-3 mb-4 text-center">
+                            <h5 class="font-heading fw-bold text-white m-0">PANEL ADMIN</h5>
+                            <small class="text-warning">SMSI KEPRI DASHBOARD</small>
+                        </div>
+                        <nav>
+                            <a href="#" class="admin-nav-item active" onclick="switchAdminTab('tab-admin-dash', this)"><i class="fas fa-chart-line"></i> Dashboard</a>
+                            <a href="#" class="admin-nav-item" onclick="switchAdminTab('tab-admin-media', this)"><i class="fas fa-globe"></i> Kelola Media Anggota</a>
+                            <a href="#" class="admin-nav-item" onclick="switchAdminTab('tab-admin-berita', this)"><i class="fas fa-newspaper"></i> Kelola Berita</a>
+                            <a href="#" class="admin-nav-item" onclick="switchAdminTab('tab-admin-pengurus', this)"><i class="fas fa-user-tie"></i> Kelola Pengurus</a>
+                            <a href="#" class="admin-nav-item" onclick="switchAdminTab('tab-admin-db', this)"><i class="fas fa-database"></i> Database SQL Schema</a>
+                            <hr class="dropdown-divider my-3 border-secondary">
+                            <a href="#" class="admin-nav-item text-danger" onclick="switchView('home-view')"><i class="fas fa-sign-out-alt"></i> Keluar Portal Public</a>
+                        </nav>
+                    </div>
+
+                    <!-- Main Admin Workspace -->
+                    <div class="col-lg-10 p-4 bg-light" style="min-height: 100vh;">
+                        
+                        <!-- TAB 1: DASHBOARD ANALYTICS -->
+                        <div id="tab-admin-dash" class="admin-subtab">
+                            <h3 class="font-heading fw-bold text-navy mb-4">Ringkasan Sistem Statistics</h3>
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-3">
+                                    <div class="card card-custom p-3 border-start border-primary border-4">
+                                        <div class="text-muted small">Total Media</div>
+                                        <div class="h3 fw-bold text-navy m-0" id="adm-count-media">0</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card card-custom p-3 border-start border-success border-4">
+                                        <div class="text-muted small">Media Aktif</div>
+                                        <div class="h3 fw-bold text-success m-0" id="adm-count-aktif">0</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card card-custom p-3 border-start border-warning border-4">
+                                        <div class="text-muted small">Media Verifikasi / Pending</div>
+                                        <div class="h3 fw-bold text-warning m-0" id="adm-count-pending">0</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card card-custom p-3 border-start border-info border-4">
+                                        <div class="text-muted small">Total Berita Rilis</div>
+                                        <div class="h3 fw-bold text-info m-0" id="adm-count-berita">0</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row g-4">
+                                <div class="col-md-7">
+                                    <div class="card card-custom p-4">
+                                        <h5 class="font-heading fw-bold mb-3">Distribusi Media Per Kabupaten / Kota</h5>
+                                        <canvas id="chartMediaCity" height="200"></canvas>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="card card-custom p-4">
+                                        <h5 class="font-heading fw-bold mb-3">Aktivitas Terakhir</h5>
+                                        <ul class="list-group list-group-flush small" id="admin-recent-log">
+                                            <li class="list-group-item">User Admin melakukan update status media "Batam News Siber"</li>
+                                            <li class="list-group-item">Rilis berita baru "Pelantikan Pengurus SMSI Natuna"</li>
+                                            <li class="list-group-item">Pendaftaran anggota baru diterima dari Kab. Bintan</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TAB 2: CRUD MEDIA ANGGOTA -->
+                        <div id="tab-admin-media" class="admin-subtab d-none">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h3 class="font-heading fw-bold text-navy m-0">Manajemen Database Media Anggota</h3>
+                                <button class="btn btn-primary bg-navy" onclick="openAddMediaModal()"><i class="fas fa-plus me-1"></i> Tambah Media Baru</button>
+                            </div>
+                            <div class="card card-custom p-3">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped align-middle small">
+                                        <thead class="table-dark bg-navy">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Nama Media</th>
+                                                <th>Perusahaan</th>
+                                                <th>Kota</th>
+                                                <th>Pemred</th>
+                                                <th>Status</th>
+                                                <th class="text-center">Aksi CRUD</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="adm-media-tbody">
+                                            <!-- Dynamic JS -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TAB 3: CRUD BERITA -->
+                        <div id="tab-admin-berita" class="admin-subtab d-none">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h3 class="font-heading fw-bold text-navy m-0">Kelola Berita & Siaran Pers</h3>
+                                <button class="btn btn-primary bg-navy" onclick="openAddNewsModal()"><i class="fas fa-plus me-1"></i> Tulis Berita Baru</button>
+                            </div>
+                            <div class="card card-custom p-3">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered align-middle small">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th>Judul Berita</th>
+                                                <th>Kategori</th>
+                                                <th>Tanggal</th>
+                                                <th>Penulis</th>
+                                                <th class="text-center">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="adm-berita-tbody">
+                                            <!-- Dynamic -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TAB 4: CRUD PENGURUS -->
+                        <div id="tab-admin-pengurus" class="admin-subtab d-none">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h3 class="font-heading fw-bold text-navy m-0">Kelola Pengurus Organisasi</h3>
+                                <button class="btn btn-primary bg-navy" onclick="alert('Fitur Form Tambah Pengurus Siap Dikembangkan!')"><i class="fas fa-plus me-1"></i> Tambah Pengurus</button>
+                            </div>
+                            <p class="text-muted">Daftar pengurus SMSI Kepri tingkat Provinsi & Kabupaten/Kota.</p>
+                        </div>
+
+                        <!-- TAB 5: DATABASE MYSQL SCHEMA -->
+                        <div id="tab-admin-db" class="admin-subtab d-none">
+                            <h3 class="font-heading fw-bold text-navy mb-3">Skema Database MySQL (smsi_kepri) & Migration Laravel</h3>
+                            <p class="text-muted">Struktur tabel database relasional MySQL yang siap langsung di-migrate ke proyek Laravel backend.</p>
+                            <div class="card card-custom p-3 bg-dark text-warning">
+<pre class="m-0" style="font-size: 0.825rem; font-family: monospace;">
+CREATE DATABASE IF NOT EXISTS `smsi_kepri` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `smsi_kepri`;
+
+-- 1. Tabel Users (Admin & Editor Authentication)
+CREATE TABLE `users` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL UNIQUE,
+  `password` varchar(255) NOT NULL,
+  `role` enum('superadmin','admin','editor') NOT NULL DEFAULT 'editor',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- 2. Tabel Media Anggota
+CREATE TABLE `media` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `logo` varchar(255) DEFAULT NULL,
+  `nama_perusahaan` varchar(255) NOT NULL,
+  `nama_media` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL UNIQUE,
+  `website` varchar(255) NOT NULL,
+  `direktur` varchar(255) NOT NULL,
+  `pemimpin_redaksi` varchar(255) NOT NULL,
+  `alamat` text NOT NULL,
+  `kabupaten_kota` varchar(100) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `telepon` varchar(50) DEFAULT NULL,
+  `tahun_bergabung` year(4) NOT NULL,
+  `nomor_anggota` varchar(100) DEFAULT NULL,
+  `status_keanggotaan` enum('Aktif','Pending','Nonaktif') NOT NULL DEFAULT 'Pending',
+  `deskripsi` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- 3. Tabel Kategori Berita
+CREATE TABLE `kategori_berita` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `nama` varchar(100) NOT NULL,
+  `slug` varchar(100) NOT NULL UNIQUE,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- 4. Tabel Berita
+CREATE TABLE `berita` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `judul` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL UNIQUE,
+  `kategori_id` bigint(20) UNSIGNED NOT NULL,
+  `gambar` varchar(255) DEFAULT NULL,
+  `ringkasan` text DEFAULT NULL,
+  `isi` longtext NOT NULL,
+  `penulis` varchar(100) NOT NULL,
+  `status` enum('published','draft') DEFAULT 'published',
+  `tanggal_publikasi` date NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`kategori_id`) REFERENCES `kategori_berita`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+</pre>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER SECTION -->
+    <footer class="footer-main" id="public-footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 42px; height: 42px; background: var(--blue-light) !important;">
+                            <i class="fas fa-globe-asia fa-lg text-warning"></i>
+                        </div>
+                        <div class="footer-title m-0 pb-0" style="border:none;">SMSI KEPULAUAN RIAU</div>
+                    </div>
+                    <p class="small text-muted mb-3">Serikat Media Siber Indonesia (SMSI) Provinsi Kepulauan Riau adalah konstituen Dewan Pers wadah tempat berhimpunnya perusahaan pers media siber berbasis digital.</p>
+                    <div class="d-flex gap-2">
+                        <a href="#" class="btn btn-sm btn-outline-light rounded-circle"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="btn btn-sm btn-outline-light rounded-circle"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="btn btn-sm btn-outline-light rounded-circle"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-2 footer-links">
+                    <div class="footer-title">Navigasi</div>
+                    <a href="#" onclick="switchView('home-view')">Beranda</a>
+                    <a href="#" onclick="switchView('profile-view')">Profil SMSI</a>
+                    <a href="#" onclick="switchView('leadership-view')">Kepengurusan</a>
+                    <a href="#" onclick="switchView('directory-view')">Direktori Media</a>
+                    <a href="#" onclick="switchView('news-list-view')">Warta & Berita</a>
+                </div>
+                <div class="col-6 col-lg-2 footer-links">
+                    <div class="footer-title">Wilayah SMSI</div>
+                    <a href="#">Kota Batam</a>
+                    <a href="#">Kota Tanjungpinang</a>
+                    <a href="#">Kab. Bintan</a>
+                    <a href="#">Kab. Karimun</a>
+                    <a href="#">Kab. Natuna</a>
+                </div>
+                <div class="col-lg-4">
+                    <div class="footer-title">Sekretariat SMSI Kepri</div>
+                    <ul class="list-unstyled small text-muted">
+                        <li class="mb-2"><i class="fas fa-map-marker-alt text-warning me-2"></i> Jl. Ahmad Yani No. 12, Kota Tanjungpinang, Kepulauan Riau</li>
+                        <li class="mb-2"><i class="fas fa-envelope text-warning me-2"></i> sekretariat@smsikepri.or.id</li>
+                        <li class="mb-2"><i class="fas fa-phone-alt text-warning me-2"></i> +62 812-7000-8899</li>
+                        <li><i class="fas fa-clock text-warning me-2"></i> Senin - Jumat: 08:30 - 17:00 WIB</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom text-center text-muted">
+            <div class="container">
+                <p class="m-0">&copy; 2026 Serikat Media Siber Indonesia (SMSI) Provinsi Kepulauan Riau. Hak Cipta Dilindungi Undang-Undang.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL 1: FORM PENDAFTARAN ANGGOTA BARU -->
+    <div class="modal fade" id="modalRegisterMedia" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header modal-header-smsi">
+                    <h5 class="modal-header-title font-heading fw-bold m-0"><i class="fas fa-file-signature me-2"></i> Formulir Pendaftaran Anggota SMSI Kepri</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="form-register-media" onsubmit="handleRegisterSubmit(event)">
+                    <div class="modal-body p-4">
+                        <div class="alert alert-info small mb-3">
+                            <i class="fas fa-info-circle me-1"></i> Pendaftaran ini ditujukan bagi perusahaan pers media siber (PT / Yayasan / Koperasi) yang berdomisili di Provinsi Kepulauan Riau.
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label font-heading small fw-bold">Nama Perusahaan (PT/CV/Koperasi)</label>
+                                <input type="text" class="form-control" required placeholder="PT Media Siber Nusantara">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label font-heading small fw-bold">Nama Portal Media Online</label>
+                                <input type="text" class="form-control" required placeholder="KepriSiberNews.co.id">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label font-heading small fw-bold">Alamat URL Website</label>
+                                <input type="url" class="form-control" required placeholder="https://keprisibernews.co.id">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label font-heading small fw-bold">Kabupaten / Kota Domisili</label>
+                                <select class="form-select" required>
+                                    <option value="">-- Pilih Kab/Kota --</option>
+                                    <option>Kota Batam</option>
+                                    <option>Kota Tanjungpinang</option>
+                                    <option>Kab. Bintan</option>
+                                    <option>Kab. Karimun</option>
+                                    <option>Kab. Natuna</option>
+                                    <option>Kab. Lingga</option>
+                                    <option>Kab. Kepulauan Anambas</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label font-heading small fw-bold">Nama Pimpinan Perusahaan (Direktur)</label>
+                                <input type="text" class="form-control" required placeholder="Nama Lengkap Direktur">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label font-heading small fw-bold">Pemimpin Redaksi</label>
+                                <input type="text" class="form-control" required placeholder="Nama Pemred">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label font-heading small fw-bold">Email Perusahaan / Redaksi</label>
+                                <input type="email" class="form-control" required placeholder="redaksi@perusahaan.com">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label font-heading small fw-bold">Nomor WhatsApp Contact</label>
+                                <input type="tel" class="form-control" required placeholder="081234567890">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary bg-navy px-4"><i class="fas fa-paper-plane me-1"></i> Kirim Pendaftaran</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: ADD MEDIA (ADMIN CRUD) -->
+    <div class="modal fade" id="modalAddMediaAdmin" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header modal-header-smsi">
+                    <h5 class="modal-title font-heading fw-bold m-0">Tambah / Edit Data Media</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="form-crud-media" onsubmit="saveMediaData(event)">
+                    <input type="hidden" id="crud-media-id">
+                    <div class="modal-body p-4">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Nama Media</label>
+                                <input type="text" class="form-control" id="m-nama-media" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Nama Perusahaan</label>
+                                <input type="text" class="form-control" id="m-nama-perusahaan" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Website URL</label>
+                                <input type="text" class="form-control" id="m-website" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Kabupaten / Kota</label>
+                                <select class="form-select" id="m-kota" required>
+                                    <option>Kota Batam</option>
+                                    <option>Kota Tanjungpinang</option>
+                                    <option>Kab. Bintan</option>
+                                    <option>Kab. Karimun</option>
+                                    <option>Kab. Natuna</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Pemimpin Redaksi</label>
+                                <input type="text" class="form-control" id="m-pemred" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Status Keanggotaan</label>
+                                <select class="form-select" id="m-status">
+                                    <option value="Aktif">Aktif</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Nonaktif">Nonaktif</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-success"><i class="fas fa-save me-1"></i> Simpan Data</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- MAIN APP JAVASCRIPT LOGIC -->
+    <script>
+        // ================= DATA STORES (MOCK BACKEND DATABASE) =================
+        let mediaDatabase = [
+            { id: 1, nama_media: 'Batam News Siber', nama_perusahaan: 'PT Batam Siber Media', website: 'https://batamnewssiber.co.id', kota: 'Kota Batam', pemred: 'H. Ahmad Riadi', direktur: 'Dedi Kurniawan', tahun: 2021, status: 'Aktif', logo: 'https://placehold.co/100x100/0B2545/FFFFFF?text=BNS' },
+            { id: 2, nama_media: 'Tanjungpinang Pos Online', nama_perusahaan: 'PT Kepri Pres Grafika', website: 'https://tanjungpinangpos.id', kota: 'Kota Tanjungpinang', pemred: 'Syafruddin', direktur: 'M. Hasbi', tahun: 2020, status: 'Aktif', logo: 'https://placehold.co/100x100/134074/FFFFFF?text=TP' },
+            { id: 3, nama_media: 'Bintan News', nama_perusahaan: 'PT Bintan Media Utama', website: 'https://bintannews.com', kota: 'Kab. Bintan', pemred: 'Rahmat Hidayat', direktur: 'Surya Wijaya', tahun: 2022, status: 'Aktif', logo: 'https://placehold.co/100x100/0077B6/FFFFFF?text=BN' },
+            { id: 4, nama_media: 'Karimun Today', nama_perusahaan: 'PT Karimun Siber Mandiri', website: 'https://karimuntoday.com', kota: 'Kab. Karimun', pemred: 'Zulham Efendi', direktur: 'Roni Saputra', tahun: 2021, status: 'Aktif', logo: 'https://placehold.co/100x100/0B2545/FFFFFF?text=KT' },
+            { id: 5, nama_media: 'Natuna Times', nama_perusahaan: 'PT Natuna Media Perdana', website: 'https://natunatimes.co.id', kota: 'Kab. Natuna', pemred: 'Budi Utomo', direktur: 'Budi Utomo', tahun: 2023, status: 'Pending', logo: 'https://placehold.co/100x100/D4AF37/000000?text=NT' },
+            { id: 6, nama_media: 'Kepri Cyber Media', nama_perusahaan: 'PT Kepri Siber Nusantara', website: 'https://kepricyber.id', kota: 'Kota Batam', pemred: 'Irfan Fahmi', direktur: 'M. Rizky', tahun: 2024, status: 'Aktif', logo: 'https://placehold.co/100x100/134074/FFFFFF?text=KCM' }
+        ];
+
+        let newsDatabase = [
+            {
+                id: 1,
+                judul: 'SMSI Kepri Dorong Digitalisasi Media Lokal & Pemutakhiran Database Keanggotaan Perusahaan Pers',
+                kategori: 'Siaran Pers',
+                tanggal: '5 November 2026',
+                penulis: 'Humas SMSI Kepri',
+                gambar: 'https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=800&q=80',
+                ringkasan: 'SMSI Provinsi Kepulauan Riau memperkuat koordinasi bersama Dinas Kominfo dan instansi pemerintah daerah untuk membangun ekosistem siber yang sehat.',
+                isi: '<p>TANJUNGPINANG - Serikat Media Siber Indonesia (SMSI) Provinsi Kepulauan Riau terus menunjukkan komitmennya dalam memperkuat ekosistem industri media siber yang profesional di wilayah Provinsi Kepulauan Riau.</p><p>Dalam rapat pleno pengurus yang digelar di Tanjungpinang, Pengurus SMSI Kepri menekankan pentingnya verifikasi berkala bagi seluruh perusahaan pers yang menjadi anggota organisasi. Langkah ini bertujuan menjaga kualitas jurnalistik, kepatuhan legalitas hukum pers, serta memberikan jaminan transparansi publik.</p>'
+            },
+            {
+                id: 2,
+                judul: 'Rakernas SMSI 2026: Memperkuat Kemerdekaan Pers dan Kesejahteraan Pengusaha Media Digital',
+                kategori: 'Kegiatan',
+                tanggal: '2 November 2026',
+                penulis: 'Redaksi SMSI',
+                gambar: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80',
+                ringkasan: 'Delegasi SMSI Kepri siap menghadiri Rapat Kerja Nasional (Rakernas) SMSI di Jakarta dengan membawa aspirasi media daerah.',
+                isi: '<p>JAKARTA - Rapat Kerja Nasional Serikat Media Siber Indonesia resmi dibuka. Delegasi dari SMSI Kepulauan Riau turut hadir menyampaikan program strategis penguatan ekonomi media siber di pulau-pulau terdepan Indonesia.</p>'
+            },
+            {
+                id: 3,
+                judul: 'Uji Kompetensi Wartawan (UKW) SMSI Kepri Cetak Puluhan Jurnalis Siber Profesional',
+                kategori: 'Berita SMSI',
+                tanggal: '28 Oktober 2026',
+                penulis: 'Divisi Pendidikan',
+                gambar: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80',
+                ringkasan: 'SMSI Kepri sukses menyelenggarakan UKW tingkat Muda dan Madya bekerjasama dengan Lembaga Uji Dewan Pers.',
+                isi: '<p>BATAM - Pelaksanaan Uji Kompetensi Wartawan (UKW) yang digagas SMSI Kepri berjalan sukses. Puluhan jurnalis dari berbagai perusahaan media siber dinyatakan kompeten.</p>'
+            }
+        ];
+
+        let agendaDatabase = [
+            { tanggal: '12 Nov 2026', nama: 'Pelantikan Pengurus SMSI Kabupaten Natuna', lokasi: 'Ranai, Natuna', status: 'Mendatang' },
+            { tanggal: '20 Nov 2026', nama: 'Workshop Monetisasi & AI untuk Media Siber', lokasi: 'Hotel Aston Batam', status: 'Mendatang' },
+            { tanggal: '05 Des 2026', nama: 'SMSI Kepri Award 2026 & Gala Dinner Pers', lokasi: 'Tanjungpinang', status: 'Direncanakan' }
+        ];
+
+        let leadershipDatabase = [
+            { nama: 'H. Ramon Damora', jabatan: 'Ketua Umum SMSI Kepri', periode: '2024 - 2029', foto: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=300&q=80' },
+            { nama: 'Zakmi Fasta', jabatan: 'Sekretaris Umum', periode: '2024 - 2029', foto: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=300&q=80' },
+            { nama: 'M. Rofik', jabatan: 'Bendahara Umum', periode: '2024 - 2029', foto: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80' },
+            { nama: 'Dedi Suwadha', jabatan: 'Wakil Ketua Bidang Organisasi', periode: '2024 - 2029', foto: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80' }
+        ];
+
+        let galleryDatabase = [
+            { title: 'Rakerda SMSI Kepri 2026', img: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=600&q=80' },
+            { title: 'Audiensi Bersama Gubernur Kepri', img: 'https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?auto=format&fit=crop&w=600&q=80' },
+            { title: 'Pelatihan Jurnalistik Siber', img: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80' },
+            { title: 'Konferensi Pers Bersama Kapolda Kepri', img: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=600&q=80' }
+        ];
+
+        // ================= APPLICATION INITIALIZATION =================
+        window.onload = function() {
+            renderHomeNews();
+            renderHomeMediaCards();
+            renderSidebarAgenda();
+            renderHomeGallery();
+            renderDirectoryTable(mediaDatabase);
+            renderLeadership();
+            renderNewsList();
+            renderFullAgenda();
+            renderFullGallery();
+            initAdminDashboard();
+        };
+
+        // ================= ROUTING / VIEW SWITCHER =================
+        function switchView(viewId) {
+            // Hide all view sections
+            document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active-view'));
+
+            // Toggle top header & footer visibility for Admin View
+            const pubHeader = document.getElementById('public-header');
+            const pubNav = document.getElementById('public-navbar');
+            const pubFooter = document.getElementById('public-footer');
+
+            if (viewId === 'admin-view') {
+                pubHeader.style.display = 'none';
+                pubNav.style.display = 'none';
+                pubFooter.style.display = 'none';
+            } else {
+                pubHeader.style.display = 'block';
+                pubNav.style.display = 'block';
+                pubFooter.style.display = 'block';
+            }
+
+            // Show selected view
+            const targetView = document.getElementById(viewId);
+            if (targetView) {
+                targetView.classList.add('active-view');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function scrollToFooter() {
+            document.getElementById('public-footer').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ================= RENDERERS =================
+
+        // 1. Home News Render
+        function renderHomeNews() {
+            const container = document.getElementById('home-news-grid');
+            container.innerHTML = '';
+            
+            // Skip first featured item
+            newsDatabase.slice(1, 3).forEach(item => {
+                container.innerHTML += `
+                    <div class="col-md-6">
+                        <div class="card card-custom overflow-hidden" onclick="openNewsDetail(${item.id})" style="cursor:pointer;">
+                            <div class="news-img-holder">
+                                <img src="${item.gambar}" alt="${item.judul}">
+                                <span class="news-category-badge">${item.kategori}</span>
+                            </div>
+                            <div class="card-body p-3">
+                                <div class="text-muted small mb-2"><i class="far fa-calendar-alt me-1"></i> ${item.tanggal}</div>
+                                <h5 class="card-title font-heading fw-bold text-navy h6 mb-2" style="line-height: 1.4;">${item.judul}</h5>
+                                <p class="card-text text-muted small">${item.ringkasan.substring(0, 85)}...</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // 2. Home Media Cards Render
+        function renderHomeMediaCards() {
+            const container = document.getElementById('home-media-cards-container');
+            container.innerHTML = '';
+
+            mediaDatabase.slice(0, 4).forEach(m => {
+                container.innerHTML += `
+                    <div class="col-6 col-md-3">
+                        <div class="card card-custom p-3 text-center border">
+                            <img src="${m.logo}" class="mx-auto mb-3" style="width:70px; height:70px; object-fit:contain;" alt="${m.nama_media}">
+                            <h6 class="font-heading fw-bold text-navy mb-1">${m.nama_media}</h6>
+                            <small class="text-muted d-block mb-2"><i class="fas fa-map-marker-alt text-danger me-1"></i> ${m.kota}</small>
+                            <span class="badge badge-status-${m.status.toLowerCase()} align-self-center px-3 py-1 mb-3">${m.status}</span>
+                            <button class="btn btn-sm btn-outline-primary w-100" onclick="openMediaDetail(${m.id})">Lihat Detail</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // 3. Sidebar Agenda
+        function renderSidebarAgenda() {
+            const container = document.getElementById('sidebar-agenda-list');
+            container.innerHTML = '';
+            agendaDatabase.forEach(ag => {
+                container.innerHTML += `
+                    <div class="border-start border-3 border-primary ps-3 py-1">
+                        <small class="text-primary fw-bold font-heading">${ag.tanggal}</small>
+                        <h6 class="font-heading fw-bold text-navy mb-1" style="font-size:0.9rem;">${ag.nama}</h6>
+                        <small class="text-muted"><i class="fas fa-location-dot me-1"></i> ${ag.lokasi}</small>
+                    </div>
+                `;
+            });
+        }
+
+        // 4. Home Gallery Preview
+        function renderHomeGallery() {
+            const container = document.getElementById('home-gallery-preview');
+            container.innerHTML = '';
+            galleryDatabase.slice(0, 4).forEach(g => {
+                container.innerHTML += `
+                    <div class="col-6 col-md-3">
+                        <div class="gallery-item shadow-sm">
+                            <img src="${g.img}" alt="${g.title}">
+                            <div class="gallery-overlay">
+                                <span class="small font-heading fw-bold">${g.title}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // 5. Media Directory Table & Filter Engine
+        function renderDirectoryTable(data) {
+            const tbody = document.getElementById('directory-table-body');
+            tbody.innerHTML = '';
+
+            if(data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="9" class="text-center py-4 text-muted">Data media tidak ditemukan.</td></tr>`;
+                return;
+            }
+
+            data.forEach((m, idx) => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td class="ps-3 fw-bold text-muted">${idx + 1}</td>
+                        <td><img src="${m.logo}" alt="Logo"></td>
+                        <td>
+                            <a href="#" onclick="openMediaDetail(${m.id})" class="fw-bold text-navy text-decoration-none">${m.nama_media}</a>
+                            <small class="d-block text-muted"><a href="${m.website}" target="_blank" class="text-primary text-decoration-none"><i class="fas fa-external-link-alt me-1"></i> ${m.website}</a></small>
+                        </td>
+                        <td><span class="fw-semibold text-dark">${m.nama_perusahaan}</span></td>
+                        <td>
+                            <div class="small"><strong>Pemred:</strong> ${m.pemred}</div>
+                            <div class="small text-muted"><strong>Direktur:</strong> ${m.direktur}</div>
+                        </td>
+                        <td><span class="badge bg-light text-dark border">${m.kota}</span></td>
+                        <td class="small">${m.tahun}</td>
+                        <td><span class="badge badge-status-${m.status.toLowerCase()} px-2 py-1">${m.status}</span></td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-primary py-1 px-2" onclick="openMediaDetail(${m.id})"><i class="fas fa-info-circle me-1"></i> Detail</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function filterDirectory() {
+            const searchKey = document.getElementById('dir-search-input').value.toLowerCase();
+            const cityKey = document.getElementById('dir-filter-city').value;
+            const statusKey = document.getElementById('dir-filter-status').value;
+
+            const filtered = mediaDatabase.filter(item => {
+                const matchSearch = item.nama_media.toLowerCase().includes(searchKey) || item.nama_perusahaan.toLowerCase().includes(searchKey);
+                const matchCity = cityKey === '' || item.kota === cityKey;
+                const matchStatus = statusKey === '' || item.status === statusKey;
+                return matchSearch && matchCity && matchStatus;
+            });
+
+            renderDirectoryTable(filtered);
+        }
+
+        // Export Data Simulation
+        function exportDirectoryData(format) {
+            alert(`Fitur Export PDF/Excel berjalan. Mengunduh data Direktori Anggota SMSI Kepri dalam format .${format}`);
+        }
+
+        // 6. Media Detail View
+        function openMediaDetail(id) {
+            const item = mediaDatabase.find(m => m.id === id);
+            if (!item) return;
+
+            const container = document.getElementById('media-detail-content');
+            container.innerHTML = `
+                <div class="row g-4 align-items-center mb-4">
+                    <div class="col-md-3 text-center">
+                        <img src="${item.logo}" class="img-fluid border rounded-3 p-3 bg-white shadow-sm" style="max-height: 150px;" alt="Logo Media">
+                    </div>
+                    <div class="col-md-9">
+                        <span class="badge badge-status-${item.status.toLowerCase()} mb-2">${item.status}</span>
+                        <h1 class="font-heading fw-bold text-navy mb-1">${item.nama_media}</h1>
+                        <p class="lead text-muted mb-2">${item.nama_perusahaan}</p>
+                        <a href="${item.website}" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill"><i class="fas fa-globe me-1"></i> Kunjungi Website Resmi (${item.website})</a>
+                    </div>
+                </div>
+
+                <div class="row g-4 border-top pt-4">
+                    <div class="col-md-6">
+                        <h5 class="font-heading fw-bold text-navy mb-3">Informasi Perusahaan & Redaksi</h5>
+                        <table class="table table-sm">
+                            <tr><td class="text-muted" style="width: 180px;">Pemimpin Redaksi</td><th>: ${item.pemred}</th></tr>
+                            <tr><td class="text-muted">Direktur Utama</td><th>: ${item.direktur}</th></tr>
+                            <tr><td class="text-muted">Domisili Kab/Kota</td><th>: ${item.kota}</th></tr>
+                            <tr><td class="text-muted">Tahun Bergabung SMSI</td><th>: ${item.tahun}</th></tr>
+                            <tr><td class="text-muted">Status Keanggotaan</td><th>: <span class="badge badge-status-${item.status.toLowerCase()}">${item.status}</span></th></tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="font-heading fw-bold text-navy mb-3">Kontak & Alamat Perusahaan</h5>
+                        <p class="text-muted small mb-2"><i class="fas fa-map-marker-alt text-danger me-2"></i> Jl. Pers Siber Indonesia No. 45, ${item.kota}, Kepulauan Riau</p>
+                        <p class="text-muted small mb-2"><i class="fas fa-envelope text-primary me-2"></i> redaksi@${item.nama_media.toLowerCase().replace(/\s+/g,'')}.co.id</p>
+                        <p class="text-muted small"><i class="fas fa-phone text-success me-2"></i> +62 811-7700-1122</p>
+                    </div>
+                </div>
+            `;
+
+            switchView('media-detail-view');
+        }
+
+        // 7. Leadership Render
+        function renderLeadership() {
+            const container = document.getElementById('leadership-grid');
+            container.innerHTML = '';
+            leadershipDatabase.forEach(l => {
+                container.innerHTML += `
+                    <div class="col-6 col-md-3">
+                        <div class="card card-custom text-center p-3">
+                            <img src="${l.foto}" class="rounded-circle mx-auto mb-3 shadow" style="width: 110px; height: 110px; object-fit: cover;" alt="${l.nama}">
+                            <h5 class="font-heading fw-bold text-navy h6 mb-1">${l.nama}</h5>
+                            <small class="text-primary fw-semibold d-block mb-1">${l.jabatan}</small>
+                            <span class="badge bg-light text-muted border">${l.periode}</span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // 8. News List & Detail
+        function renderNewsList() {
+            const container = document.getElementById('all-news-container');
+            container.innerHTML = '';
+            newsDatabase.forEach(item => {
+                container.innerHTML += `
+                    <div class="card card-custom mb-4 overflow-hidden" onclick="openNewsDetail(${item.id})" style="cursor:pointer;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="${item.gambar}" class="img-fluid h-100 w-100" style="object-fit:cover;" alt="News">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body p-4">
+                                    <span class="badge bg-navy mb-2">${item.kategori}</span>
+                                    <h4 class="font-heading fw-bold text-navy h5 mb-2">${item.judul}</h4>
+                                    <div class="text-muted small mb-2"><i class="far fa-calendar-alt me-1"></i> ${item.tanggal} | Oleh: ${item.penulis}</div>
+                                    <p class="text-muted small">${item.ringkasan}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function openNewsDetail(id) {
+            const item = newsDatabase.find(n => n.id === id);
+            if (!item) return;
+
+            const container = document.getElementById('single-news-content');
+            container.innerHTML = `
+                <span class="badge bg-navy px-3 py-2 text-uppercase mb-3">${item.kategori}</span>
+                <h1 class="font-heading fw-bold text-navy mb-3 h2">${item.judul}</h1>
+                <div class="d-flex align-items-center gap-3 text-muted small mb-4 border-bottom pb-3">
+                    <span><i class="far fa-user me-1"></i> ${item.penulis}</span>
+                    <span>|</span>
+                    <span><i class="far fa-calendar-alt me-1"></i> ${item.tanggal}</span>
+                </div>
+                <img src="${item.gambar}" class="img-fluid rounded-4 w-100 mb-4" alt="Berita Detail">
+                <div class="news-body lead" style="font-size:1.05rem; line-height: 1.8;">
+                    ${item.isi}
+                </div>
+                <div class="border-top pt-4 mt-5 d-flex align-items-center justify-content-between">
+                    <span class="fw-bold font-heading text-navy">Bagikan Berita Ini:</span>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-sm btn-primary" onclick="alert('Shared to Facebook!')"><i class="fab fa-facebook-f me-1"></i> Facebook</button>
+                        <button class="btn btn-sm btn-success" onclick="alert('Shared to WhatsApp!')"><i class="fab fa-whatsapp me-1"></i> WhatsApp</button>
+                        <button class="btn btn-sm btn-dark" onclick="alert('Shared to Twitter/X!')"><i class="fab fa-x-twitter me-1"></i> X</button>
+                    </div>
+                </div>
+            `;
+
+            switchView('news-detail-view');
+        }
+
+        function renderFullAgenda() {
+            const container = document.getElementById('full-agenda-list');
+            container.innerHTML = '';
+            agendaDatabase.forEach(a => {
+                container.innerHTML += `
+                    <div class="list-group-item p-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="badge bg-primary mb-2">${a.tanggal}</span>
+                                <h5 class="font-heading fw-bold text-navy mb-1">${a.nama}</h5>
+                                <small class="text-muted"><i class="fas fa-map-marker-alt me-1 text-danger"></i> ${a.lokasi}</small>
+                            </div>
+                            <span class="badge bg-warning text-dark">${a.status}</span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function renderFullGallery() {
+            const container = document.getElementById('full-gallery-grid');
+            container.innerHTML = '';
+            galleryDatabase.forEach(g => {
+                container.innerHTML += `
+                    <div class="col-md-4">
+                        <div class="gallery-item shadow">
+                            <img src="${g.img}" alt="${g.title}">
+                            <div class="gallery-overlay">
+                                <span class="font-heading fw-bold text-white">${g.title}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // ================= ADMIN DASHBOARD LOGIC =================
+        function switchAdminTab(tabId, el) {
+            document.querySelectorAll('.admin-nav-item').forEach(i => i.classList.remove('active'));
+            if(el) el.classList.add('active');
+
+            document.querySelectorAll('.admin-subtab').forEach(t => t.classList.add('d-none'));
+            document.getElementById(tabId).classList.remove('d-none');
+        }
+
+        function initAdminDashboard() {
+            // Update counts
+            document.getElementById('adm-count-media').innerText = mediaDatabase.length;
+            document.getElementById('adm-count-aktif').innerText = mediaDatabase.filter(m => m.status === 'Aktif').length;
+            document.getElementById('adm-count-pending').innerText = mediaDatabase.filter(m => m.status === 'Pending').length;
+            document.getElementById('adm-count-berita').innerText = newsDatabase.length;
+
+            renderAdminMediaTable();
+            renderAdminNewsTable();
+            initChart();
+        }
+
+        function renderAdminMediaTable() {
+            const tbody = document.getElementById('adm-media-tbody');
+            tbody.innerHTML = '';
+            mediaDatabase.forEach(m => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${m.id}</td>
+                        <td class="fw-bold">${m.nama_media}</td>
+                        <td>${m.nama_perusahaan}</td>
+                        <td>${m.kota}</td>
+                        <td>${m.pemred}</td>
+                        <td><span class="badge badge-status-${m.status.toLowerCase()}">${m.status}</span></td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-info text-white py-0 px-2" onclick="editMediaData(${m.id})"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-danger py-0 px-2" onclick="deleteMediaData(${m.id})"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function renderAdminNewsTable() {
+            const tbody = document.getElementById('adm-berita-tbody');
+            tbody.innerHTML = '';
+            newsDatabase.forEach(n => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td class="fw-bold">${n.judul}</td>
+                        <td><span class="badge bg-secondary">${n.kategori}</span></td>
+                        <td>${n.tanggal}</td>
+                        <td>${n.penulis}</td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-danger py-0 px-2" onclick="deleteNewsData(${n.id})"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function openAddMediaModal() {
+            document.getElementById('form-crud-media').reset();
+            document.getElementById('crud-media-id').value = '';
+            new bootstrap.Modal(document.getElementById('modalAddMediaAdmin')).show();
+        }
+
+        function saveMediaData(e) {
+            e.preventDefault();
+            const id = document.getElementById('crud-media-id').value;
+            const namaMedia = document.getElementById('m-nama-media').value;
+            const namaPT = document.getElementById('m-nama-perusahaan').value;
+            const website = document.getElementById('m-website').value;
+            const kota = document.getElementById('m-kota').value;
+            const pemred = document.getElementById('m-pemred').value;
+            const status = document.getElementById('m-status').value;
+
+            if (id) {
+                // Edit
+                const index = mediaDatabase.findIndex(m => m.id == id);
+                if (index !== -1) {
+                    mediaDatabase[index].nama_media = namaMedia;
+                    mediaDatabase[index].nama_perusahaan = namaPT;
+                    mediaDatabase[index].website = website;
+                    mediaDatabase[index].kota = kota;
+                    mediaDatabase[index].pemred = pemred;
+                    mediaDatabase[index].status = status;
+                }
+            } else {
+                // Create
+                const newObj = {
+                    id: Date.now(),
+                    nama_media: namaMedia,
+                    nama_perusahaan: namaPT,
+                    website: website,
+                    kota: kota,
+                    pemred: pemred,
+                    direktur: 'Direktur Utama',
+                    tahun: 2026,
+                    status: status,
+                    logo: 'https://placehold.co/100x100/0B2545/FFFFFF?text=NEW'
+                };
+                mediaDatabase.push(newObj);
+            }
+
+            bootstrap.Modal.getInstance(document.getElementById('modalAddMediaAdmin')).hide();
+            initAdminDashboard();
+            renderDirectoryTable(mediaDatabase);
+            renderHomeMediaCards();
+            alert('Data Media Anggota Berhasil Disimpan!');
+        }
+
+        function editMediaData(id) {
+            const m = mediaDatabase.find(item => item.id === id);
+            if (!m) return;
+            document.getElementById('crud-media-id').value = m.id;
+            document.getElementById('m-nama-media').value = m.nama_media;
+            document.getElementById('m-nama-perusahaan').value = m.nama_perusahaan;
+            document.getElementById('m-website').value = m.website;
+            document.getElementById('m-kota').value = m.kota;
+            document.getElementById('m-pemred').value = m.pemred;
+            document.getElementById('m-status').value = m.status;
+            new bootstrap.Modal(document.getElementById('modalAddMediaAdmin')).show();
+        }
+
+        function deleteMediaData(id) {
+            if (confirm('Apakah Anda yakin ingin menghapus media anggota ini?')) {
+                mediaDatabase = mediaDatabase.filter(m => m.id !== id);
+                initAdminDashboard();
+                renderDirectoryTable(mediaDatabase);
+                renderHomeMediaCards();
+            }
+        }
+
+        function openAddNewsModal() {
+            const title = prompt("Masukkan Judul Berita Baru:");
+            if(title) {
+                newsDatabase.unshift({
+                    id: Date.now(),
+                    judul: title,
+                    kategori: 'Berita SMSI',
+                    tanggal: '5 November 2026',
+                    penulis: 'Admin Redaksi',
+                    gambar: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=80',
+                    ringkasan: 'Rilis berita baru yang diterbitkan oleh admin SMSI Kepulauan Riau.',
+                    isi: '<p>Konten rilis berita baru resmi dari SMSI Kepri.</p>'
+                });
+                initAdminDashboard();
+                renderHomeNews();
+                renderNewsList();
+            }
+        }
+
+        function deleteNewsData(id) {
+            if (confirm('Hapus berita ini?')) {
+                newsDatabase = newsDatabase.filter(n => n.id !== id);
+                initAdminDashboard();
+                renderHomeNews();
+                renderNewsList();
+            }
+        }
+
+        // Handle Public Registration Form
+        function handleRegisterSubmit(e) {
+            e.preventDefault();
+            bootstrap.Modal.getInstance(document.getElementById('modalRegisterMedia')).hide();
+            alert('Pendaftaran Berhasil Dikirim! Tim Verifikasi SMSI Kepri akan menghubungi Anda via WhatsApp/Email.');
+            e.target.reset();
+        }
+
+        function handleGlobalSearch() {
+            const q = document.getElementById('global-search-input').value;
+            if(q) {
+                switchView('directory-view');
+                document.getElementById('dir-search-input').value = q;
+                filterDirectory();
+            }
+        }
+
+        function handleSidebarSearch() {
+            const q = document.getElementById('sidebar-search-key').value;
+            if(q) {
+                switchView('directory-view');
+                document.getElementById('dir-search-input').value = q;
+                filterDirectory();
+            }
+        }
+
+        // Initialize Chart.js
+        function initChart() {
+            const ctx = document.getElementById('chartMediaCity');
+            if(!ctx) return;
+            
+            // Count distribution
+            const cities = ['Kota Batam', 'Kota Tanjungpinang', 'Kab. Bintan', 'Kab. Karimun', 'Kab. Natuna'];
+            const counts = cities.map(c => mediaDatabase.filter(m => m.kota === c).length);
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: cities,
+                    datasets: [{
+                        label: 'Jumlah Media Anggota',
+                        data: counts,
+                        backgroundColor: '#0B2545',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
