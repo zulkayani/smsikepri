@@ -1,0 +1,2040 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - SMSI Provinsi Kepulauan Riau</title>
+
+    <!-- Google Fonts: Poppins & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --brand-navy: #102B49;
+            --brand-navy-light: #1a3c63;
+            --brand-blue: #155EAA;
+            --brand-gold: #D6A84F;
+            --brand-gold-hover: #b88d37;
+            --brand-bg: #F5F7FA;
+            --brand-text: #2D3748;
+            --sidebar-width: 260px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--brand-bg);
+            color: var(--brand-text);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4, h5, h6, .font-heading {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Layout Structure */
+        #wrapper {
+            display: flex;
+            width: 100%;
+            align-items: stretch;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styling */
+        #sidebar {
+            min-width: var(--sidebar-width);
+            max-width: var(--sidebar-width);
+            background-color: var(--brand-navy);
+            color: #fff;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.05);
+        }
+
+        #sidebar.collapsed {
+            margin-left: calc(-1 * var(--sidebar-width));
+        }
+
+        .sidebar-header {
+            padding: 20px 18px;
+            background-color: rgba(0, 0, 0, 0.15);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .sidebar-menu {
+            padding: 15px 10px;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .menu-category {
+            font-size: 0.725rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #94a3b8;
+            padding: 12px 12px 6px 12px;
+            font-weight: 700;
+        }
+
+        .sidebar-menu .nav-link {
+            color: #cbd5e1;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 3px;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-menu .nav-link:hover {
+            color: #ffffff;
+            background-color: var(--brand-navy-light);
+        }
+
+        .sidebar-menu .nav-link.active {
+            color: #102B49;
+            background-color: var(--brand-gold);
+            font-weight: 600;
+        }
+
+        .sidebar-menu .nav-link .badge {
+            margin-left: auto;
+        }
+
+        /* Main Content Container */
+        #content-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Top Header Navbar */
+        .admin-header {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .toggle-sidebar-btn {
+            background: transparent;
+            border: none;
+            font-size: 1.35rem;
+            color: var(--brand-navy);
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .toggle-sidebar-btn:hover {
+            background-color: #f1f5f9;
+        }
+
+        /* Cards & Containers */
+        .card-custom {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            background: #ffffff;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .stat-card {
+            border-left: 5px solid var(--brand-blue);
+        }
+
+        .stat-card.gold { border-left-color: var(--brand-gold); }
+        .stat-card.success { border-left-color: #10b981; }
+        .stat-card.warning { border-left-color: #f59e0b; }
+        .stat-card.danger { border-left-color: #ef4444; }
+
+        /* Tables Styling */
+        .table-custom th {
+            background-color: #f8fafc;
+            color: #475569;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .table-custom td {
+            vertical-align: middle;
+            font-size: 0.875rem;
+        }
+
+        /* Views Switching */
+        .admin-view {
+            display: none;
+            animation: fadeIn 0.25s ease-in-out;
+        }
+
+        .admin-view.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 991.98px) {
+            #sidebar {
+                margin-left: calc(-1 * var(--sidebar-width));
+                position: fixed;
+                height: 100vh;
+            }
+
+            #sidebar.show-mobile {
+                margin-left: 0;
+            }
+        }
+
+        .avatar-box {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--brand-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .rich-editor-toolbar button {
+            background: #fff;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            padding: 4px 10px;
+            font-size: 0.85rem;
+        }
+
+        .rich-editor-toolbar button:hover {
+            background-color: #f1f5f9;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="wrapper">
+        <!-- SIDEBAR -->
+        <aside id="sidebar">
+            <div class="sidebar-header d-flex align-items-center gap-3">
+                <svg width="38" height="38" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="100" height="100" rx="16" fill="#155EAA"/>
+                    <path d="M20 75L50 25L80 75H65L50 50L35 75H20Z" fill="#D6A84F"/>
+                </svg>
+                <div class="overflow-hidden">
+                    <h5 class="font-heading fw-bold text-white mb-0 text-truncate">SMSI KEPRI</h5>
+                    <small class="text-warning fw-semibold" style="font-size: 0.725rem;">ADMIN PORTAL</small>
+                </div>
+            </div>
+
+            <!-- Admin Profile Short Summary -->
+            <div class="p-3 border-bottom border-dark border-opacity-25 bg-black bg-opacity-10 d-flex align-items-center gap-3">
+                <div class="avatar-box flex-shrink-0" style="background-color: var(--brand-gold); color: #102B49;">
+                    SA
+                </div>
+                <div class="overflow-hidden">
+                    <div class="fw-semibold text-white small text-truncate" id="sidebar-admin-name">Super Admin</div>
+                    <small class="text-slate-400 d-block text-truncate" style="font-size: 0.725rem;" id="sidebar-admin-role">Super Administrator</small>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu">
+                <div class="menu-category">UTAMA</div>
+                <a href="javascript:void(0)" class="nav-link active" onclick="switchView('dashboard', this)">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </a>
+
+                <div class="menu-category">KONTEN & MEDSOS</div>
+                <a href="javascript:void(0)" class="nav-link" onclick="switchView('berita', this)">
+                    <i class="bi bi-newspaper"></i> Kelola Berita
+                </a>
+                <a href="javascript:void(0)" class="nav-link" onclick="switchView('kategori', this)">
+                    <i class="bi bi-tags"></i> Kategori Berita
+                </a>
+                <a href="javascript:void(0)" class="nav-link" onclick="switchView('agenda', this)">
+                    <i class="bi bi-calendar-event"></i> Agenda & Program
+                </a>
+                <a href="javascript:void(0)" class="nav-link" onclick="switchView('galeri', this)">
+                    <i class="bi bi-images"></i> Galeri & Dokumentasi
+                </a>
+
+                <div class="menu-category">KEANGGOTAAN</div>
+                <a href="javascript:void(0)" class="nav-link" onclick="switchView('media', this)">
+                    <i class="bi bi-journal-bookmark-fill"></i> Media Anggota
+                </a>
+                <a href="javascript:void(0)" class="nav-link" onclick="switchView('pendaftaran', this)">
+                    <i class="bi bi-person-plus-fill"></i> Pendaftaran Media
+                    <span class="badge bg-warning text-dark rounded-pill">3</span>
+                </a>
+                <a href="javascript:void(0)" class="nav-link" onclick="switchView('pengurus', this)">
+                    <i class="bi bi-people"></i> Pengurus Organisasi
+                </a>
+
+                <div class="menu-category">SISTEM</div>
+                <a href="javascript:void(0)" class="nav-link" onclick="switchView('users', this)">
+                    <i class="bi bi-shield-lock"></i> Manajemen Pengguna
+                </a>
+                <a href="javascript:void(0)" class="nav-link" onclick="switchView('settings', this)">
+                    <i class="bi bi-gear"></i> Pengaturan Website
+                </a>
+
+                <div class="mt-4 pt-3 border-top border-dark border-opacity-25">
+                    <a href="javascript:void(0)" class="nav-link text-danger" onclick="confirmLogout()">
+                        <i class="bi bi-box-arrow-right"></i> Keluar (Logout)
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- MAIN CONTENT WRAPPER -->
+        <div id="content-wrapper">
+            <!-- HEADER -->
+            <header class="admin-header">
+                <div class="d-flex align-items-center gap-3">
+                    <button class="toggle-sidebar-btn" id="sidebar-toggle" title="Toggle Sidebar">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    <!-- Breadcrumbs -->
+                    <nav aria-label="breadcrumb" class="d-none d-md-block">
+                        <ol class="breadcrumb mb-0 small">
+                            <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Admin</a></li>
+                            <li class="breadcrumb-item active" id="breadcrumb-current">Dashboard</li>
+                        </ol>
+                    </nav>
+                </div>
+
+                <div class="d-flex align-items-center gap-3">
+                    <!-- Quick Global Search Input -->
+                    <div class="input-group d-none d-sm-flex" style="width: 220px;">
+                        <span class="input-group-text bg-light border-end-0"><i class="bi bi-search text-muted"></i></span>
+                        <input type="text" class="form-control form-control-sm bg-light border-start-0" placeholder="Cari di admin...">
+                    </div>
+
+                    <!-- Notification Dropdown -->
+                    <div class="dropdown">
+                        <button class="btn btn-light btn-sm position-relative rounded-circle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="width: 38px; height: 38px;">
+                            <i class="bi bi-bell"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+                                <span class="visually-hidden">Notifikasi</span>
+                            </span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" style="width: 300px;">
+                            <li class="dropdown-header font-heading fw-bold">Notifikasi Terkini</li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item small py-2" href="#">
+                                    <div class="fw-semibold text-dark">Pendaftaran Media Baru</div>
+                                    <div class="text-muted" style="font-size: 0.75rem;">PT Batam Media Siber mendaftar 10 menit lalu</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item small py-2" href="#">
+                                    <div class="fw-semibold text-dark">Verifikasi Berhasil</div>
+                                    <div class="text-muted" style="font-size: 0.75rem;">NatunaSiber.com terverifikasi Dewan Pers</div>
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item small text-center text-primary fw-semibold" href="#">Lihat Semua Notifikasi</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Admin Profile Dropdown -->
+                    <div class="dropdown">
+                        <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle gap-2" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="avatar-box" style="width: 36px; height: 36px; font-size: 0.85rem;">SA</div>
+                            <span class="d-none d-md-inline fw-semibold text-dark small">Super Admin</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+                            <li><a class="dropdown-item small" href="#" onclick="switchView('settings')"><i class="bi bi-person me-2"></i> Profil Saya</a></li>
+                            <li><a class="dropdown-item small" href="#" onclick="switchView('settings')"><i class="bi bi-gear me-2"></i> Pengaturan Akun</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item small text-danger" href="#" onclick="confirmLogout()"><i class="bi bi-box-arrow-right me-2"></i> Keluar</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+
+            <!-- VIEW CONTENT CONTAINER -->
+            <main class="p-4 flex-grow-1">
+
+                <!-- 1. VIEW DASHBOARD UTAMA -->
+                <section id="view-dashboard" class="admin-view active">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h3 class="font-heading fw-bold text-navy mb-1">Dashboard Ikhtisar</h3>
+                            <p class="text-muted small mb-0">Selamat datang kembali, Super Admin. Berikut adalah ringkasan status organisasi SMSI Kepri.</p>
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary" onclick="refreshDashboardData()"><i class="bi bi-arrow-clockwise me-1"></i> Refresh Data</button>
+                    </div>
+
+                    <!-- Statistic Cards -->
+                    <div class="row g-3 mb-4">
+                        <div class="col-sm-6 col-xl-2">
+                            <div class="card card-custom p-3 stat-card">
+                                <small class="text-muted fw-bold uppercase">Total Berita</small>
+                                <h3 class="fw-bold text-navy my-1">124</h3>
+                                <small class="text-success" style="font-size: 0.75rem;"><i class="bi bi-arrow-up-right"></i> +12 bulan ini</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-2">
+                            <div class="card card-custom p-3 stat-card gold">
+                                <small class="text-muted fw-bold uppercase">Media Anggota</small>
+                                <h3 class="fw-bold text-navy my-1">68</h3>
+                                <small class="text-muted" style="font-size: 0.75rem;">Tersebar di 7 Kab/Kota</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-2">
+                            <div class="card card-custom p-3 stat-card success">
+                                <small class="text-muted fw-bold uppercase">Media Aktif</small>
+                                <h3 class="fw-bold text-navy my-1">62</h3>
+                                <small class="text-success" style="font-size: 0.75rem;">Terverifikasi / Aktif</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-2">
+                            <div class="card card-custom p-3 stat-card warning">
+                                <small class="text-muted fw-bold uppercase">Pendaftaran Pending</small>
+                                <h3 class="fw-bold text-navy my-1">6</h3>
+                                <small class="text-warning" style="font-size: 0.75rem;"><i class="bi bi-clock-history"></i> Butuh Verifikasi</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-2">
+                            <div class="card card-custom p-3 stat-card">
+                                <small class="text-muted fw-bold uppercase">Total Pengurus</small>
+                                <h3 class="fw-bold text-navy my-1">45</h3>
+                                <small class="text-muted" style="font-size: 0.75rem;">Provinsi & Perwakilan</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-2">
+                            <div class="card card-custom p-3 stat-card danger">
+                                <small class="text-muted fw-bold uppercase">Total Agenda</small>
+                                <h3 class="fw-bold text-navy my-1">18</h3>
+                                <small class="text-muted" style="font-size: 0.75rem;">3 Agenda Mendatang</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Section -->
+                    <div class="row g-4 mb-4">
+                        <div class="col-lg-7">
+                            <div class="card card-custom p-4">
+                                <h5 class="font-heading fw-bold text-navy mb-3">Sebaran Media Anggota Berdasarkan Wilayah</h5>
+                                <div style="height: 280px;">
+                                    <canvas id="chartMediaWilayah"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="card card-custom p-4">
+                                <h5 class="font-heading fw-bold text-navy mb-3">Tren Publikasi Berita 2026</h5>
+                                <div style="height: 280px;">
+                                    <canvas id="chartBeritaBulanan"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tables Overview -->
+                    <div class="row g-4">
+                        <div class="col-lg-6">
+                            <div class="card card-custom p-3">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5 class="font-heading fw-bold text-navy mb-0">Berita Terbaru</h5>
+                                    <button class="btn btn-sm btn-link text-decoration-none" onclick="switchView('berita')">Lihat Semua</button>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-custom align-middle mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Judul</th>
+                                                <th>Kategori</th>
+                                                <th>Tanggal</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="dash-recent-news">
+                                            <!-- Render dynamically -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="card card-custom p-3">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5 class="font-heading fw-bold text-navy mb-0">Pendaftaran Media Terbaru</h5>
+                                    <button class="btn btn-sm btn-link text-decoration-none" onclick="switchView('pendaftaran')">Proses All</button>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-custom align-middle mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Nama Media</th>
+                                                <th>Kota</th>
+                                                <th>Tanggal</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="dash-recent-registration">
+                                            <!-- Render dynamically -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. VIEW MEDIA ANGGOTA (CRUD) -->
+                <section id="view-media" class="admin-view">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+                        <div>
+                            <h3 class="font-heading fw-bold text-navy mb-1">Manajemen Media Anggota</h3>
+                            <p class="text-muted small mb-0">Kelola daftar perusahaan pers media siber anggota resmi SMSI Kepri.</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-outline-success btn-sm" onclick="exportData('Excel')"><i class="bi bi-file-earmark-excel me-1"></i> Export Excel</button>
+                            <button class="btn btn-outline-danger btn-sm" onclick="exportData('PDF')"><i class="bi bi-file-earmark-pdf me-1"></i> Export PDF</button>
+                            <button class="btn btn-primary btn-sm" onclick="openMediaModal()"><i class="bi bi-plus-lg me-1"></i> Tambah Media Baru</button>
+                        </div>
+                    </div>
+
+                    <!-- Filters -->
+                    <div class="card card-custom p-3 mb-4">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <input type="text" id="admin-media-search" class="form-control form-control-sm" placeholder="Cari nama media atau PT..." onkeyup="filterAdminMedia()">
+                            </div>
+                            <div class="col-md-3">
+                                <select id="admin-media-city-filter" class="form-select form-select-sm" onchange="filterAdminMedia()">
+                                    <option value="">Semua Kabupaten/Kota</option>
+                                    <option value="Batam">Kota Batam</option>
+                                    <option value="Tanjungpinang">Kota Tanjungpinang</option>
+                                    <option value="Karimun">Kab. Karimun</option>
+                                    <option value="Bintan">Kab. Bintan</option>
+                                    <option value="Natuna">Kab. Natuna</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select id="admin-media-status-filter" class="form-select form-select-sm" onchange="filterAdminMedia()">
+                                    <option value="">Semua Status Dewan Pers</option>
+                                    <option value="Terverifikasi">Terverifikasi</option>
+                                    <option value="Anggota Aktif">Anggota Aktif</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Table List -->
+                    <div class="card card-custom p-3">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-custom align-middle mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Logo</th>
+                                        <th>Nama Perusahaan / PT</th>
+                                        <th>Nama Media</th>
+                                        <th>Kab/Kota</th>
+                                        <th>Pemred</th>
+                                        <th>Status Dewan Pers</th>
+                                        <th class="text-end">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-media-table-body">
+                                    <!-- Dynamic items -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. VIEW BERITA (CRUD) -->
+                <section id="view-berita" class="admin-view">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h3 class="font-heading fw-bold text-navy mb-1">Manajemen Berita</h3>
+                            <p class="text-muted small mb-0">Kelola artikel, siaran pers, dan publikasi resmi SMSI Kepri.</p>
+                        </div>
+                        <button class="btn btn-primary btn-sm" onclick="openBeritaModal()"><i class="bi bi-plus-lg me-1"></i> Tulis Berita Baru</button>
+                    </div>
+
+                    <div class="card card-custom p-3">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-custom align-middle mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Thumbnail</th>
+                                        <th>Judul Berita</th>
+                                        <th>Kategori</th>
+                                        <th>Penulis</th>
+                                        <th>Tanggal</th>
+                                        <th>Status</th>
+                                        <th class="text-end">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-berita-table-body">
+                                    <!-- Dynamic News -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 4. VIEW KATEGORI BERITA -->
+                <section id="view-kategori" class="admin-view">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h3 class="font-heading fw-bold text-navy mb-1">Kategori Berita</h3>
+                            <p class="text-muted small mb-0">Kelola kategori dan pengelompokan artikel berita SMSI Kepri.</p>
+                        </div>
+                        <button class="btn btn-primary btn-sm" onclick="openKategoriModal()"><i class="bi bi-plus-lg me-1"></i> Tambah Kategori Baru</button>
+                    </div>
+                    <div class="card card-custom p-3">
+                        <table class="table table-hover table-custom align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Kategori</th>
+                                    <th>Slug</th>
+                                    <th>Jumlah Artikel</th>
+                                    <th class="text-end">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-kategori-table-body">
+                                <!-- Render dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 5. VIEW PENDAFTARAN ANGGOTA BARU -->
+                <section id="view-pendaftaran" class="admin-view">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h3 class="font-heading fw-bold text-navy mb-1">Verifikasi Pendaftaran Media</h3>
+                            <p class="text-muted small mb-0">Proses permohonan keanggotaan baru dari pengusaha media siber Kepri.</p>
+                        </div>
+                    </div>
+
+                    <div class="card card-custom p-3">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-custom align-middle mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama Perusahaan</th>
+                                        <th>Nama Media</th>
+                                        <th>Kota</th>
+                                        <th>Pemred</th>
+                                        <th>Status Pendaftaran</th>
+                                        <th class="text-end">Aksi Verifikasi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-pendaftaran-table-body">
+                                    <!-- Dynamic rendering -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 6. VIEW PENGURUS -->
+                <section id="view-pengurus" class="admin-view">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h3 class="font-heading fw-bold text-navy mb-1">Struktur Pengurus Organisasi</h3>
+                            <p class="text-muted small mb-0">Kelola jajaran Pengurus Harian Provinsi dan Perwakilan Kabupaten/Kota.</p>
+                        </div>
+                        <button class="btn btn-primary btn-sm" onclick="openPengurusModal()"><i class="bi bi-plus-lg me-1"></i> Tambah Pengurus Baru</button>
+                    </div>
+                    <div class="card card-custom p-3">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-custom align-middle mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Foto</th>
+                                        <th>Nama Lengkap</th>
+                                        <th>Jabatan</th>
+                                        <th>Bidang / Tingkat</th>
+                                        <th>Periode</th>
+                                        <th class="text-end">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-pengurus-table-body">
+                                    <!-- Render dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 7. VIEW AGENDA & GALERI PLACEHOLDERS -->
+                <section id="view-agenda" class="admin-view">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h3 class="font-heading fw-bold text-navy mb-1">Kelola Agenda Kegiatan</h3>
+                            <p class="text-muted small mb-0">Atur jadwal rapat, rakerda, UKW, dan kegiatan organisasi SMSI Kepri.</p>
+                        </div>
+                        <button class="btn btn-primary btn-sm" onclick="openAgendaModal()"><i class="bi bi-plus-lg me-1"></i> Tambah Agenda Baru</button>
+                    </div>
+
+                    <div class="card card-custom p-3">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-custom align-middle mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama Kegiatan</th>
+                                        <th>Tanggal</th>
+                                        <th>Lokasi</th>
+                                        <th>Status</th>
+                                        <th class="text-end">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-agenda-table-body">
+                                    <!-- Render dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="view-galeri" class="admin-view">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h3 class="font-heading fw-bold text-navy mb-1">Kelola Galeri & Dokumentasi</h3>
+                            <p class="text-muted small mb-0">Kelola album foto dan dokumentasi video kegiatan SMSI Kepri.</p>
+                        </div>
+                        <button class="btn btn-primary btn-sm" onclick="openGaleriModal()"><i class="bi bi-plus-lg me-1"></i> Tambah Foto / Video Baru</button>
+                    </div>
+
+                    <div class="card card-custom p-3">
+                        <div class="row g-3" id="admin-galeri-grid">
+                            <!-- Render dynamically -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 8. VIEW USERS (ROLES) -->
+                <section id="view-users" class="admin-view">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h3 class="font-heading fw-bold text-navy mb-1">Manajemen Pengguna Admin</h3>
+                            <p class="text-muted small mb-0">Hak Akses Sistem: Super Admin, Admin Organisasi, dan Editor Berita.</p>
+                        </div>
+                        <button class="btn btn-primary btn-sm" onclick="openUserModal()"><i class="bi bi-person-plus me-1"></i> Tambah User Baru</button>
+                    </div>
+
+                    <div class="card card-custom p-3">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-custom align-middle mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama User</th>
+                                        <th>Email</th>
+                                        <th>Role Akses</th>
+                                        <th>Status</th>
+                                        <th class="text-end">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-users-table-body">
+                                    <!-- Render dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 9. VIEW SETTINGS -->
+                <section id="view-settings" class="admin-view">
+                    <h3 class="font-heading fw-bold text-navy mb-4">Pengaturan Website SMSI Kepri</h3>
+                    <div class="bg-white p-4 rounded-3 shadow-sm border">
+                        <form onsubmit="handleSettingsSave(event)">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Nama Organisasi</label>
+                                    <input type="text" class="form-control" value="SMSI Provinsi Kepulauan Riau">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Email Sekretariat</label>
+                                    <input type="email" class="form-control" value="sekretariat@smsikepri.or.id">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Nomor Kontak Hotline / WA</label>
+                                    <input type="text" class="form-control" value="+62 811-7001-928">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Alamat Gedung Sekretariat</label>
+                                    <input type="text" class="form-control" value="Gedung Pers Kepri, Batam Center, Kota Batam">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label fw-bold">Tagline Organisasi</label>
+                                    <input type="text" class="form-control" value="Membangun Ekosistem Media Siber yang Profesional dan Berintegritas.">
+                                </div>
+                                <div class="col-12 mt-4">
+                                    <button type="submit" class="btn btn-primary"><i class="bi bi-save me-1"></i> Simpan Pengaturan Website</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+            </main>
+
+            <!-- FOOTER ADMIN -->
+            <footer class="bg-white border-top py-3 px-4 text-center text-md-between d-flex flex-wrap align-items-center justify-content-between small text-muted">
+                <div>&copy; 2026 <strong>SMSI Provinsi Kepulauan Riau</strong>. Sistem Dashboard Admin Backend.</div>
+                <div>Laravel v10.x &amp; Bootstrap 5 Layout Architecture</div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- MODAL FORM MEDIA (CREATE / EDIT SIMULATION) -->
+    <div class="modal fade" id="modalMediaForm" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-navy text-white" style="background-color: var(--brand-navy);">
+                    <h5 class="modal-title font-heading fw-bold" id="modalMediaTitle">Tambah Media Anggota Baru</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="formMedia" onsubmit="saveMediaForm(event)">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Nama Perusahaan (PT)</label>
+                                <input type="text" id="m-company" class="form-control" required placeholder="Contoh: PT Batam News Siber">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Nama Portal Media</label>
+                                <input type="text" id="m-name" class="form-control" required placeholder="Contoh: BatamNews.co.id">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Direktur / Pimpinan</label>
+                                <input type="text" id="m-leader" class="form-control" required placeholder="Nama pimpinan">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Pemimpin Redaksi</label>
+                                <input type="text" id="m-editor" class="form-control" required placeholder="Nama pemred">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Kabupaten / Kota</label>
+                                <select id="m-city" class="form-select" required>
+                                    <option value="Batam">Kota Batam</option>
+                                    <option value="Tanjungpinang">Kota Tanjungpinang</option>
+                                    <option value="Karimun">Kab. Karimun</option>
+                                    <option value="Bintan">Kab. Bintan</option>
+                                    <option value="Natuna">Kab. Natuna</option>
+                                    <option value="Anambas">Kab. Anambas</option>
+                                    <option value="Lingga">Kab. Lingga</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Status Keanggotaan</label>
+                                <select id="m-status" class="form-select" required>
+                                    <option value="Terverifikasi">Terverifikasi Dewan Pers</option>
+                                    <option value="Anggota Aktif">Anggota Aktif SMSI</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">URL Website</label>
+                                <input type="url" id="m-website" class="form-control" required placeholder="https://domain.com">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Email Resmi</label>
+                                <input type="email" id="m-email" class="form-control" required placeholder="redaksi@domain.com">
+                            </div>
+                        </div>
+                        <div class="mt-4 text-end">
+                            <button type="button" class="btn btn-light me-2" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary"><i class="bi bi-save me-1"></i> Simpan Data Media</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FORM BERITA -->
+    <div class="modal fade" id="modalBeritaForm" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-navy text-white" style="background-color: var(--brand-navy);">
+                    <h5 class="modal-title font-heading fw-bold">Tulis / Edit Berita Baru</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="formBerita" onsubmit="saveBeritaForm(event)">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label fw-semibold">Judul Berita</label>
+                                <input type="text" id="b-title" class="form-control" required placeholder="Ketik judul artikel..." onkeyup="generateSlug(this.value)">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Slug Otomatis</label>
+                                <input type="text" id="b-slug" class="form-control bg-light" readonly placeholder="slug-otomatis-berita">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Kategori Berita</label>
+                                <select id="b-category" class="form-select" required>
+                                    <option value="Pelantikan">Pelantikan</option>
+                                    <option value="Workshop">Workshop & Pelatihan</option>
+                                    <option value="Siaran Pers">Siaran Pers</option>
+                                    <option value="Rakerda">Rakerda</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Penulis / Redaksi</label>
+                                <input type="text" id="b-author" class="form-control" value="Redaksi SMSI Kepri" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Status Publikasi</label>
+                                <select id="b-status" class="form-select" required>
+                                    <option value="Published">Published</option>
+                                    <option value="Draft">Draft</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fw-semibold">URL Thumbnail Gambar</label>
+                                <input type="url" id="b-img" class="form-control" required placeholder="https://images.unsplash.com/...">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fw-semibold">Isi Berita (Rich Text Editor)</label>
+                                <div class="rich-editor-toolbar bg-light p-2 rounded-top border d-flex gap-1 flex-wrap mb-0">
+                                    <button type="button" onclick="document.execCommand('bold',false,null)"><i class="bi bi-type-bold"></i></button>
+                                    <button type="button" onclick="document.execCommand('italic',false,null)"><i class="bi bi-type-italic"></i></button>
+                                    <button type="button" onclick="document.execCommand('underline',false,null)"><i class="bi bi-type-underline"></i></button>
+                                    <button type="button" onclick="document.execCommand('insertUnorderedList',false,null)"><i class="bi bi-list-ul"></i></button>
+                                    <button type="button" onclick="document.execCommand('insertOrderedList',false,null)"><i class="bi bi-list-ol"></i></button>
+                                </div>
+                                <div id="b-content" class="form-control rounded-bottom border-top-0" contenteditable="true" style="min-height: 150px; background: #fff;">
+                                    Tuliskan uraian berita lengkap di sini...
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 text-end">
+                            <button type="button" class="btn btn-light me-2" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary"><i class="bi bi-send me-1"></i> Simpan & Publisahkan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FORM AGENDA -->
+    <div class="modal fade" id="modalAgendaForm" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-navy text-white" style="background-color: var(--brand-navy);">
+                    <h5 class="modal-title font-heading fw-bold" id="modalAgendaTitle">Tambah Agenda Kegiatan Baru</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form onsubmit="saveAgendaForm(event)">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label fw-semibold">Nama Kegiatan / Acara</label>
+                                <input type="text" id="a-title" class="form-control" required placeholder="Contoh: Rakerda SMSI Kepri 2026">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Tanggal Pelaksanaan</label>
+                                <input type="text" id="a-date" class="form-control" required placeholder="Contoh: 15 November 2026">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Status Agenda</label>
+                                <select id="a-status" class="form-select" required>
+                                    <option value="Akan Datang">Akan Datang</option>
+                                    <option value="Pendaftaran Dibuka">Pendaftaran Dibuka</option>
+                                    <option value="Selesai">Selesai</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fw-semibold">Lokasi Pelaksanaan</label>
+                                <input type="text" id="a-location" class="form-control" required placeholder="Contoh: Hotel Grand Eska, Batam">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fw-semibold">Deskripsi Kegiatan</label>
+                                <textarea id="a-desc" class="form-control" rows="3" required placeholder="Tuliskan keterangan ringkas acara..."></textarea>
+                            </div>
+                        </div>
+                        <div class="mt-4 text-end">
+                            <button type="button" class="btn btn-light me-2" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary"><i class="bi bi-save me-1"></i> Simpan Agenda</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FORM GALERI -->
+    <div class="modal fade" id="modalGaleriForm" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-navy text-white" style="background-color: var(--brand-navy);">
+                    <h5 class="modal-title font-heading fw-bold" id="modalGaleriTitle">Upload Foto / Video Dokumentasi</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form onsubmit="saveGaleriForm(event)">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label fw-semibold">Judul Dokumentasi</label>
+                                <input type="text" id="g-title" class="form-control" required placeholder="Contoh: Penyerahan Pataka Pelantikan">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Kategori Dokumentasi</label>
+                                <select id="g-category" class="form-select" required>
+                                    <option value="Pelantikan">Pelantikan</option>
+                                    <option value="UKW">Pelatihan / UKW</option>
+                                    <option value="Rakerda">Rakerda</option>
+                                    <option value="Kegiatan Sosial">Kegiatan Sosial</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">URL Gambar Foto / Embed Video</label>
+                                <input type="url" id="g-url" class="form-control" required placeholder="https://images.unsplash.com/...">
+                            </div>
+                        </div>
+                        <div class="mt-4 text-end">
+                            <button type="button" class="btn btn-light me-2" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary"><i class="bi bi-upload me-1"></i> Simpan Dokumentasi</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FORM KATEGORI BERITA -->
+    <div class="modal fade" id="modalKategoriForm" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-navy text-white" style="background-color: var(--brand-navy);">
+                    <h5 class="modal-title font-heading fw-bold" id="modalKategoriTitle">Tambah Kategori Berita</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form onsubmit="saveKategoriForm(event)">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Nama Kategori</label>
+                            <input type="text" id="k-name" class="form-control" required placeholder="Contoh: Pelantikan" onkeyup="document.getElementById('k-slug').value = this.value.toLowerCase().replace(/[^a-z0-9]/g, '-')">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Slug Kategori</label>
+                            <input type="text" id="k-slug" class="form-control bg-light" readonly placeholder="pelantikan">
+                        </div>
+                        <div class="text-end mt-4">
+                            <button type="button" class="btn btn-light me-2" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary"><i class="bi bi-save me-1"></i> Simpan Kategori</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FORM PENGURUS -->
+    <div class="modal fade" id="modalPengurusForm" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-navy text-white" style="background-color: var(--brand-navy);">
+                    <h5 class="modal-title font-heading fw-bold" id="modalPengurusTitle">Tambah Data Pengurus</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form onsubmit="savePengurusForm(event)">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Nama Lengkap</label>
+                                <input type="text" id="p-name" class="form-control" required placeholder="Nama & Gelar">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Jabatan</label>
+                                <input type="text" id="p-role" class="form-control" required placeholder="Contoh: Ketua Umum / Sekretaris">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Bidang / Tingkat Pengurus</label>
+                                <select id="p-level" class="form-select" required>
+                                    <option value="Pengurus Provinsi">Pengurus Provinsi</option>
+                                    <option value="Dewan Penasihat">Dewan Penasihat / Pembina</option>
+                                    <option value="SMSI Kota Batam">SMSI Kota Batam</option>
+                                    <option value="SMSI Kota Tanjungpinang">SMSI Kota Tanjungpinang</option>
+                                    <option value="SMSI Kab. Karimun">SMSI Kab. Karimun</option>
+                                    <option value="SMSI Kab. Bintan">SMSI Kab. Bintan</option>
+                                    <option value="SMSI Kab. Natuna">SMSI Kab. Natuna</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Periode Masabakti</label>
+                                <input type="text" id="p-period" class="form-control" value="2024 - 2029" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fw-semibold">URL Foto Profile</label>
+                                <input type="url" id="p-img" class="form-control" placeholder="https://images.unsplash.com/...">
+                            </div>
+                        </div>
+                        <div class="mt-4 text-end">
+                            <button type="button" class="btn btn-light me-2" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary"><i class="bi bi-save me-1"></i> Simpan Pengurus</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FORM USER SYSTEM -->
+    <div class="modal fade" id="modalUserForm" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-navy text-white" style="background-color: var(--brand-navy);">
+                    <h5 class="modal-title font-heading fw-bold" id="modalUserTitle">Tambah Pengguna Admin</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form onsubmit="saveUserForm(event)">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Nama Pengguna</label>
+                            <input type="text" id="u-name" class="form-control" required placeholder="Nama Lengkap User">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Email Pengguna</label>
+                            <input type="email" id="u-email" class="form-control" required placeholder="user@smsikepri.or.id">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Role Hak Akses</label>
+                            <select id="u-role" class="form-select" required>
+                                <option value="Super Admin">Super Admin</option>
+                                <option value="Admin">Admin Organisasi</option>
+                                <option value="Editor">Editor Redaksi</option>
+                            </select>
+                        </div>
+                        <div class="text-end mt-4">
+                            <button type="button" class="btn btn-light me-2" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary"><i class="bi bi-save me-1"></i> Simpan User</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CONFIRM DELETE -->
+    <div class="modal fade" id="modalDelete" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content text-center p-4">
+                <i class="bi bi-exclamation-triangle display-4 text-danger mb-2"></i>
+                <h5 class="font-heading fw-bold">Hapus Data?</h5>
+                <p class="text-muted small mb-3">Tindakan ini tidak dapat dibatalkan.</p>
+                <div class="d-flex gap-2 justify-content-center">
+                    <button type="button" class="btn btn-light btn-sm px-3" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-danger btn-sm px-3" onclick="executeDelete()">Hapus Sekarang</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3 z-3">
+        <div id="adminToast" class="toast align-items-center text-bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body" id="toastMessage">
+                    Notifikasi berhasil.
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- ADMIN BACKEND APPLICATION JS LOGIC -->
+    <script>
+        /* ==========================================================================
+           DATA STORES (MIRRORING MYSQL LARAVEL SCHEMAS WITH DUMMY DATA)
+           ========================================================================== */
+
+        let mediaData = [
+            { id: 1, name: "BatamNews.co.id", company: "PT Batam News Media", leader: "Muhammad Zuhri", editor: "Yusfreyendi", city: "Batam", website: "https://batamnews.co.id", status: "Terverifikasi", logo: "https://placehold.co/100x40/102B49/FFFFFF?text=BatamNews" },
+            { id: 2, name: "KepriNews.co", company: "PT Kepri News Siber", leader: "Rinaldi Samjaya", editor: "Zulhafiz", city: "Tanjungpinang", website: "https://keprinews.co", status: "Terverifikasi", logo: "https://placehold.co/100x40/155EAA/FFFFFF?text=KepriNews" },
+            { id: 3, name: "KarimunToday.com", company: "PT Karimun Media Siber", leader: "Syahrul Nizam", editor: "Budi Utomo", city: "Karimun", website: "https://karimuntoday.com", status: "Anggota Aktif", logo: "https://placehold.co/100x40/D6A84F/102B49?text=KarimunToday" },
+            { id: 4, name: "NatunaSiber.com", company: "PT Natuna Gerbang Media", leader: "Doni Harvester", editor: "Wan Fahmi", city: "Natuna", website: "https://natunasiber.com", status: "Terverifikasi", logo: "https://placehold.co/100x40/102B49/FFFFFF?text=NatunaSiber" }
+        ];
+
+        let beritaData = [
+            { id: 1, title: "Pengurus SMSI Kepri Periode Baru Resmi Dilantik", category: "Pelantikan", author: "Redaksi", date: "2026-11-03", status: "Published", img: "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=100&q=80" },
+            { id: 2, title: "SMSI Kepri Gelar Workshop Verifikasi Perusahaan Pers", category: "Workshop", author: "Admin", date: "2026-10-28", status: "Published", img: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=100&q=80" },
+            { id: 3, title: "Draft Panduan Standarisasi Media Siber 2027", category: "Siaran Pers", author: "Humas", date: "2026-10-25", status: "Draft", img: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=100&q=80" }
+        ];
+
+        let kategoriData = [
+            { id: 1, name: "Pelantikan", slug: "pelantikan", count: 12 },
+            { id: 2, name: "Workshop & Pelatihan", slug: "workshop", count: 24 },
+            { id: 3, name: "Rakerda", slug: "rakerda", count: 8 },
+            { id: 4, name: "Siaran Pers", slug: "siaran-pers", count: 15 }
+        ];
+
+        let pengurusData = [
+            { id: 1, name: "Rinaldi Samjaya", role: "Ketua Umum", level: "Pengurus Provinsi", period: "2024 - 2029", img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=100&q=80" },
+            { id: 2, name: "Zulhafiz, S.Kom.", role: "Sekretaris Jenderal", level: "Pengurus Provinsi", period: "2024 - 2029", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&q=80" },
+            { id: 3, name: "Siti Maryam, S.E.", role: "Bendahara Umum", level: "Pengurus Provinsi", period: "2024 - 2029", img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=100&q=80" }
+        ];
+
+        let userData = [
+            { id: 1, name: "Super Admin SMSI", email: "admin@smsikepri.or.id", role: "Super Admin", status: "Aktif" },
+            { id: 2, name: "Humas Kepri", email: "humas@smsikepri.or.id", role: "Admin", status: "Aktif" },
+            { id: 3, name: "Editor Redaksi", email: "editor@smsikepri.or.id", role: "Editor", status: "Aktif" }
+        ];
+
+        let pendaftaranData = [
+            { id: 1, company: "PT Media Gurindam Siber", name: "GurindamNews.com", city: "Tanjungpinang", editor: "Rifki", date: "2026-11-04", status: "Pending" },
+            { id: 2, company: "PT Batam Siber Utama", name: "BatamSiber.id", city: "Batam", editor: "Hendra", date: "2026-11-02", status: "Pending" },
+            { id: 3, company: "PT Karimun Pos Digital", name: "KarimunPos.id", city: "Karimun", editor: "Ahmad", date: "2026-10-30", status: "Pending" }
+        ];
+
+        let agendaData = [
+            { id: 1, title: "Rapat Kerja Daerah (RAKERDA) SMSI Kepri 2026", date: "15 November 2026", location: "Hotel Grand Eska, Batam", status: "Akan Datang", desc: "Pembahasan program kerja tahunan." },
+            { id: 2, title: "Pelatihan Literasi Digital & Anti-Hoax", date: "20 November 2026", location: "Aula SMAN 1 Tanjungpinang", status: "Akan Datang", desc: "Edukasi siswa memilih berita valid." },
+            { id: 3, title: "UKW Mandiri Angkatan VI", date: "10-12 Desember 2026", location: "Gedung Pers Kepri, Batam", status: "Pendaftaran Dibuka", desc: "Fasilitas UKW wartawan anggota." }
+        ];
+
+        let galeriAdminData = [
+            { id: 1, title: "Foto Bersama Pengurus SMSI Kepri", category: "Pelantikan", img: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=400&q=80" },
+            { id: 2, title: "Suasana Pelaksanaan UKW", category: "UKW", img: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=400&q=80" },
+            { id: 3, title: "Sidang Pleno Rakerda SMSI Kepri", category: "Rakerda", img: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=400&q=80" }
+        ];
+
+        let activeEditId = null;
+        let deleteTargetId = null;
+
+        /* ==========================================================================
+           ROUTER & VIEW SWITCHING LOGIC
+           ========================================================================== */
+
+        function switchView(viewName, linkElem) {
+            // Hide all views
+            document.querySelectorAll('.admin-view').forEach(v => v.classList.remove('active'));
+
+            // Show target view
+            const targetView = document.getElementById(`view-${viewName}`);
+            if (targetView) targetView.classList.add('active');
+
+            // Set navbar styling
+            if (linkElem) {
+                document.querySelectorAll('.sidebar-menu .nav-link').forEach(l => l.classList.remove('active'));
+                linkElem.classList.add('active');
+            }
+
+            // Update breadcrumb
+            const breadcrumb = document.getElementById('breadcrumb-current');
+            if (breadcrumb) {
+                breadcrumb.textContent = viewName.charAt(0).toUpperCase() + viewName.slice(1);
+            }
+
+            // Mobile sidebar collapse on navigation
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.remove('show-mobile');
+        }
+
+        /* ==========================================================================
+           DYNAMIC RENDERING FUNCTIONS
+           ========================================================================== */
+
+        // Render Dashboard Tables
+        function renderDashboardTables() {
+            // Recent news
+            const newsBody = document.getElementById('dash-recent-news');
+            if (newsBody) {
+                newsBody.innerHTML = beritaData.slice(0, 3).map(b => `
+                    <tr>
+                        <td class="fw-semibold text-truncate" style="max-width: 200px;">${b.title}</td>
+                        <td><span class="badge bg-light text-dark border">${b.category}</span></td>
+                        <td class="small text-muted">${b.date}</td>
+                        <td><span class="badge ${b.status === 'Published' ? 'bg-success' : 'bg-secondary'}">${b.status}</span></td>
+                    </tr>
+                `).join('');
+            }
+
+            // Recent registration
+            const regBody = document.getElementById('dash-recent-registration');
+            if (regBody) {
+                regBody.innerHTML = pendaftaranData.slice(0, 3).map(p => `
+                    <tr>
+                        <td class="fw-bold text-navy">${p.name}</td>
+                        <td><span class="badge bg-light text-dark">${p.city}</span></td>
+                        <td class="small text-muted">${p.date}</td>
+                        <td><span class="badge bg-warning text-dark">${p.status}</span></td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        // Render Admin Media List
+        function renderAdminMedia(data = mediaData) {
+            const body = document.getElementById('admin-media-table-body');
+            if (!body) return;
+
+            body.innerHTML = data.map((m, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td><img src="${m.logo}" style="height: 28px; object-fit: contain;"></td>
+                    <td class="fw-semibold">${m.company}</td>
+                    <td class="text-navy fw-bold">${m.name}</td>
+                    <td><span class="badge bg-light text-dark border">${m.city}</span></td>
+                    <td>${m.editor}</td>
+                    <td><span class="badge ${m.status === 'Terverifikasi' ? 'bg-success' : 'bg-primary'}">${m.status}</span></td>
+                    <td class="text-end">
+                        <button class="btn btn-sm btn-light me-1" onclick="openMediaModal(${m.id})"><i class="bi bi-pencil"></i></button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="confirmDeleteModal(${m.id})"><i class="bi bi-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Filter Admin Media
+        function filterAdminMedia() {
+            const query = document.getElementById('admin-media-search').value.toLowerCase();
+            const city = document.getElementById('admin-media-city-filter').value;
+            const status = document.getElementById('admin-media-status-filter').value;
+
+            const filtered = mediaData.filter(m => {
+                const matchQuery = m.name.toLowerCase().includes(query) || m.company.toLowerCase().includes(query);
+                const matchCity = city === "" || m.city === city;
+                const matchStatus = status === "" || m.status === status;
+                return matchQuery && matchCity && matchStatus;
+            });
+
+            renderAdminMedia(filtered);
+        }
+
+        // Render Admin Berita List
+        function renderAdminBerita() {
+            const body = document.getElementById('admin-berita-table-body');
+            if (!body) return;
+
+            body.innerHTML = beritaData.map((b, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td><img src="${b.img}" class="rounded" style="width: 45px; height: 35px; object-fit: cover;"></td>
+                    <td class="fw-bold text-navy">${b.title}</td>
+                    <td><span class="badge bg-info text-dark">${b.category}</span></td>
+                    <td>${b.author}</td>
+                    <td><small class="text-muted">${b.date}</small></td>
+                    <td><span class="badge ${b.status === 'Published' ? 'bg-success' : 'bg-secondary'}">${b.status}</span></td>
+                    <td class="text-end">
+                        <button class="btn btn-sm btn-light me-1" onclick="openBeritaModal(${b.id})"><i class="bi bi-pencil"></i></button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="confirmDeleteModal(${b.id}, 'berita')"><i class="bi bi-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Render Kategori Table
+        function renderAdminKategori() {
+            const body = document.getElementById('admin-kategori-table-body');
+            if (!body) return;
+
+            body.innerHTML = kategoriData.map((k, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td class="fw-bold text-navy">${k.name}</td>
+                    <td><code>${k.slug}</code></td>
+                    <td><span class="badge bg-light text-dark border">${k.count} Artikel</span></td>
+                    <td class="text-end">
+                        <button class="btn btn-sm btn-light me-1" onclick="openKategoriModal(${k.id})"><i class="bi bi-pencil"></i></button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="confirmDeleteModal(${k.id}, 'kategori')"><i class="bi bi-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Render Pengurus Table
+        function renderAdminPengurus() {
+            const body = document.getElementById('admin-pengurus-table-body');
+            if (!body) return;
+
+            body.innerHTML = pengurusData.map((p, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td><img src="${p.img}" class="rounded-circle" style="width: 38px; height: 38px; object-fit: cover;"></td>
+                    <td class="fw-bold text-navy">${p.name}</td>
+                    <td class="fw-semibold text-primary">${p.role}</td>
+                    <td><span class="badge bg-light text-dark border">${p.level}</span></td>
+                    <td>${p.period}</td>
+                    <td class="text-end">
+                        <button class="btn btn-sm btn-light me-1" onclick="openPengurusModal(${p.id})"><i class="bi bi-pencil"></i></button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="confirmDeleteModal(${p.id}, 'pengurus')"><i class="bi bi-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Render User System Table
+        function renderAdminUsers() {
+            const body = document.getElementById('admin-users-table-body');
+            if (!body) return;
+
+            body.innerHTML = userData.map((u, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td class="fw-bold text-navy">${u.name}</td>
+                    <td>${u.email}</td>
+                    <td><span class="badge ${u.role === 'Super Admin' ? 'bg-danger' : (u.role === 'Admin' ? 'bg-primary' : 'bg-info')}">${u.role}</span></td>
+                    <td><span class="badge bg-success">${u.status}</span></td>
+                    <td class="text-end">
+                        <button class="btn btn-sm btn-light me-1" onclick="openUserModal(${u.id})"><i class="bi bi-pencil"></i></button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="confirmDeleteModal(${u.id}, 'users')"><i class="bi bi-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Render Registration Approvals
+        function renderPendaftaran() {
+            const body = document.getElementById('admin-pendaftaran-table-body');
+            if (!body) return;
+
+            body.innerHTML = pendaftaranData.map((p, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td class="fw-semibold">${p.company}</td>
+                    <td class="text-navy fw-bold">${p.name}</td>
+                    <td>${p.city}</td>
+                    <td>${p.editor}</td>
+                    <td><span class="badge bg-warning text-dark">${p.status}</span></td>
+                    <td class="text-end">
+                        <button class="btn btn-sm btn-success me-1" onclick="approveMember(${p.id})"><i class="bi bi-check-lg"></i> Setujui</button>
+                        <button class="btn btn-sm btn-danger" onclick="rejectMember(${p.id})"><i class="bi bi-x-lg"></i> Tolak</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Render Admin Agenda Table
+        function renderAdminAgenda() {
+            const body = document.getElementById('admin-agenda-table-body');
+            if (!body) return;
+
+            body.innerHTML = agendaData.map((a, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td class="fw-bold text-navy">${a.title}</td>
+                    <td><small class="text-muted"><i class="bi bi-calendar3 me-1"></i>${a.date}</small></td>
+                    <td>${a.location}</td>
+                    <td><span class="badge bg-warning text-dark">${a.status}</span></td>
+                    <td class="text-end">
+                        <button class="btn btn-sm btn-light me-1" onclick="openAgendaModal(${a.id})"><i class="bi bi-pencil"></i></button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="confirmDeleteModal(${a.id}, 'agenda')"><i class="bi bi-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Render Admin Galeri Grid
+        function renderAdminGaleri() {
+            const grid = document.getElementById('admin-galeri-grid');
+            if (!grid) return;
+
+            grid.innerHTML = galeriAdminData.map(g => `
+                <div class="col-md-4 col-sm-6">
+                    <div class="card card-custom overflow-hidden">
+                        <img src="${g.img}" class="card-img-top" style="height: 160px; object-fit: cover;">
+                        <div class="p-3">
+                            <span class="badge bg-info text-dark mb-1">${g.category}</span>
+                            <h6 class="font-heading fw-bold mb-2 text-navy text-truncate">${g.title}</h6>
+                            <div class="d-flex justify-content-end gap-1">
+                                <button class="btn btn-sm btn-light" onclick="openGaleriModal(${g.id})"><i class="bi bi-pencil"></i></button>
+                                <button class="btn btn-sm btn-outline-danger" onclick="confirmDeleteModal(${g.id}, 'galeri')"><i class="bi bi-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        /* ==========================================================================
+           ACTION HANDLERS & MODALS
+           ========================================================================== */
+
+        function openMediaModal(id = null) {
+            activeEditId = id;
+            const modalElem = document.getElementById('modalMediaForm');
+            const titleElem = document.getElementById('modalMediaTitle');
+            
+            if (id) {
+                titleElem.textContent = "Edit Data Media Anggota";
+                const media = mediaData.find(m => m.id === id);
+                if (media) {
+                    document.getElementById('m-company').value = media.company;
+                    document.getElementById('m-name').value = media.name;
+                    document.getElementById('m-leader').value = media.leader;
+                    document.getElementById('m-editor').value = media.editor;
+                    document.getElementById('m-city').value = media.city;
+                    document.getElementById('m-status').value = media.status;
+                    document.getElementById('m-website').value = media.website;
+                }
+            } else {
+                titleElem.textContent = "Tambah Media Anggota Baru";
+                document.getElementById('formMedia').reset();
+            }
+
+            const modal = new bootstrap.Modal(modalElem);
+            modal.show();
+        }
+
+        function saveMediaForm(event) {
+            event.preventDefault();
+            const company = document.getElementById('m-company').value;
+            const name = document.getElementById('m-name').value;
+            const city = document.getElementById('m-city').value;
+            const status = document.getElementById('m-status').value;
+            const editor = document.getElementById('m-editor').value;
+
+            if (activeEditId) {
+                const item = mediaData.find(m => m.id === activeEditId);
+                if (item) {
+                    item.company = company;
+                    item.name = name;
+                    item.city = city;
+                    item.status = status;
+                    item.editor = editor;
+                }
+            } else {
+                mediaData.unshift({
+                    id: Date.now(),
+                    name: name,
+                    company: company,
+                    leader: "Direktur Media",
+                    editor: editor,
+                    city: city,
+                    website: "https://media.co.id",
+                    status: status,
+                    logo: "https://placehold.co/100x40/102B49/FFFFFF?text=" + name.substring(0, 5)
+                });
+            }
+
+            renderAdminMedia();
+            bootstrap.Modal.getInstance(document.getElementById('modalMediaForm')).hide();
+            showToast("Data Media Anggota berhasil disimpan!");
+        }
+
+        function openBeritaModal(id = null) {
+            activeEditId = id;
+            if (id) {
+                const b = beritaData.find(item => item.id === id);
+                if (b) {
+                    document.getElementById('b-title').value = b.title;
+                    document.getElementById('b-category').value = b.category;
+                    document.getElementById('b-author').value = b.author;
+                    document.getElementById('b-status').value = b.status;
+                    document.getElementById('b-img').value = b.img;
+                    generateSlug(b.title);
+                }
+            } else {
+                document.getElementById('formBerita').reset();
+                document.getElementById('b-content').innerHTML = "Tuliskan uraian berita lengkap di sini...";
+            }
+            const modal = new bootstrap.Modal(document.getElementById('modalBeritaForm'));
+            modal.show();
+        }
+
+        function openAgendaModal(id = null) {
+            activeEditId = id;
+            if (id) {
+                const a = agendaData.find(item => item.id === id);
+                if (a) {
+                    document.getElementById('a-title').value = a.title;
+                    document.getElementById('a-date').value = a.date;
+                    document.getElementById('a-location').value = a.location;
+                    document.getElementById('a-status').value = a.status;
+                    document.getElementById('a-desc').value = a.desc;
+                }
+            } else {
+                document.getElementById('a-title').value = '';
+                document.getElementById('a-date').value = '';
+                document.getElementById('a-location').value = '';
+                document.getElementById('a-desc').value = '';
+            }
+            const modal = new bootstrap.Modal(document.getElementById('modalAgendaForm'));
+            modal.show();
+        }
+
+        function saveAgendaForm(event) {
+            event.preventDefault();
+            const title = document.getElementById('a-title').value;
+            const date = document.getElementById('a-date').value;
+            const location = document.getElementById('a-location').value;
+            const status = document.getElementById('a-status').value;
+            const desc = document.getElementById('a-desc').value;
+
+            if (activeEditId) {
+                const item = agendaData.find(a => a.id === activeEditId);
+                if (item) {
+                    item.title = title;
+                    item.date = date;
+                    item.location = location;
+                    item.status = status;
+                    item.desc = desc;
+                }
+            } else {
+                agendaData.unshift({
+                    id: Date.now(),
+                    title: title,
+                    date: date,
+                    location: location,
+                    status: status,
+                    desc: desc
+                });
+            }
+
+            renderAdminAgenda();
+            bootstrap.Modal.getInstance(document.getElementById('modalAgendaForm')).hide();
+            showToast("Agenda kegiatan berhasil disimpan!");
+        }
+
+        function openGaleriModal(id = null) {
+            activeEditId = id;
+            if (id) {
+                const g = galeriAdminData.find(item => item.id === id);
+                if (g) {
+                    document.getElementById('g-title').value = g.title;
+                    document.getElementById('g-category').value = g.category;
+                    document.getElementById('g-url').value = g.img;
+                }
+            } else {
+                document.getElementById('g-title').value = '';
+                document.getElementById('g-url').value = '';
+            }
+            const modal = new bootstrap.Modal(document.getElementById('modalGaleriForm'));
+            modal.show();
+        }
+
+        function saveGaleriForm(event) {
+            event.preventDefault();
+            const title = document.getElementById('g-title').value;
+            const category = document.getElementById('g-category').value;
+            const url = document.getElementById('g-url').value;
+
+            if (activeEditId) {
+                const item = galeriAdminData.find(g => g.id === activeEditId);
+                if (item) {
+                    item.title = title;
+                    item.category = category;
+                    item.img = url;
+                }
+            } else {
+                galeriAdminData.unshift({
+                    id: Date.now(),
+                    title: title,
+                    category: category,
+                    img: url
+                });
+            }
+
+            renderAdminGaleri();
+            bootstrap.Modal.getInstance(document.getElementById('modalGaleriForm')).hide();
+            showToast("Dokumentasi foto/video berhasil disimpan!");
+        }
+
+        function openKategoriModal(id = null) {
+            activeEditId = id;
+            if (id) {
+                const k = kategoriData.find(item => item.id === id);
+                if (k) {
+                    document.getElementById('k-name').value = k.name;
+                    document.getElementById('k-slug').value = k.slug;
+                }
+            } else {
+                document.getElementById('k-name').value = '';
+                document.getElementById('k-slug').value = '';
+            }
+            const modal = new bootstrap.Modal(document.getElementById('modalKategoriForm'));
+            modal.show();
+        }
+
+        function saveKategoriForm(event) {
+            event.preventDefault();
+            const name = document.getElementById('k-name').value;
+            const slug = document.getElementById('k-slug').value;
+
+            if (activeEditId) {
+                const item = kategoriData.find(k => k.id === activeEditId);
+                if (item) {
+                    item.name = name;
+                    item.slug = slug;
+                }
+            } else {
+                kategoriData.push({
+                    id: Date.now(),
+                    name: name,
+                    slug: slug,
+                    count: 0
+                });
+            }
+
+            renderAdminKategori();
+            bootstrap.Modal.getInstance(document.getElementById('modalKategoriForm')).hide();
+            showToast("Kategori Berita berhasil disimpan!");
+        }
+
+        function openPengurusModal(id = null) {
+            activeEditId = id;
+            if (id) {
+                const p = pengurusData.find(item => item.id === id);
+                if (p) {
+                    document.getElementById('p-name').value = p.name;
+                    document.getElementById('p-role').value = p.role;
+                    document.getElementById('p-level').value = p.level;
+                    document.getElementById('p-period').value = p.period;
+                    document.getElementById('p-img').value = p.img;
+                }
+            } else {
+                document.getElementById('p-name').value = '';
+                document.getElementById('p-role').value = '';
+                document.getElementById('p-img').value = '';
+            }
+            const modal = new bootstrap.Modal(document.getElementById('modalPengurusForm'));
+            modal.show();
+        }
+
+        function savePengurusForm(event) {
+            event.preventDefault();
+            const name = document.getElementById('p-name').value;
+            const role = document.getElementById('p-role').value;
+            const level = document.getElementById('p-level').value;
+            const period = document.getElementById('p-period').value;
+            const img = document.getElementById('p-img').value || "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=100&q=80";
+
+            if (activeEditId) {
+                const item = pengurusData.find(p => p.id === activeEditId);
+                if (item) {
+                    item.name = name;
+                    item.role = role;
+                    item.level = level;
+                    item.period = period;
+                    item.img = img;
+                }
+            } else {
+                pengurusData.unshift({
+                    id: Date.now(),
+                    name: name,
+                    role: role,
+                    level: level,
+                    period: period,
+                    img: img
+                });
+            }
+
+            renderAdminPengurus();
+            bootstrap.Modal.getInstance(document.getElementById('modalPengurusForm')).hide();
+            showToast("Data pengurus berhasil disimpan!");
+        }
+
+        function openUserModal(id = null) {
+            activeEditId = id;
+            if (id) {
+                const u = userData.find(item => item.id === id);
+                if (u) {
+                    document.getElementById('u-name').value = u.name;
+                    document.getElementById('u-email').value = u.email;
+                    document.getElementById('u-role').value = u.role;
+                }
+            } else {
+                document.getElementById('u-name').value = '';
+                document.getElementById('u-email').value = '';
+            }
+            const modal = new bootstrap.Modal(document.getElementById('modalUserForm'));
+            modal.show();
+        }
+
+        function saveUserForm(event) {
+            event.preventDefault();
+            const name = document.getElementById('u-name').value;
+            const email = document.getElementById('u-email').value;
+            const role = document.getElementById('u-role').value;
+
+            if (activeEditId) {
+                const item = userData.find(u => u.id === activeEditId);
+                if (item) {
+                    item.name = name;
+                    item.email = email;
+                    item.role = role;
+                }
+            } else {
+                userData.push({
+                    id: Date.now(),
+                    name: name,
+                    email: email,
+                    role: role,
+                    status: "Aktif"
+                });
+            }
+
+            renderAdminUsers();
+            bootstrap.Modal.getInstance(document.getElementById('modalUserForm')).hide();
+            showToast("Data akun pengguna berhasil disimpan!");
+        }
+
+        function generateSlug(text) {
+            const slug = text.toLowerCase().replace(/[^a-z0-9 -]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-');
+            const slugInput = document.getElementById('b-slug');
+            if (slugInput) slugInput.value = slug;
+        }
+
+        function saveBeritaForm(event) {
+            event.preventDefault();
+            const title = document.getElementById('b-title').value;
+            const category = document.getElementById('b-category').value;
+            const author = document.getElementById('b-author').value;
+            const status = document.getElementById('b-status').value;
+            const img = document.getElementById('b-img').value;
+
+            if (activeEditId) {
+                const item = beritaData.find(b => b.id === activeEditId);
+                if (item) {
+                    item.title = title;
+                    item.category = category;
+                    item.author = author;
+                    item.status = status;
+                    if (img) item.img = img;
+                }
+            } else {
+                beritaData.unshift({
+                    id: Date.now(),
+                    title: title,
+                    category: category,
+                    author: author,
+                    date: new Date().toISOString().split('T')[0],
+                    status: status,
+                    img: img || "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=100&q=80"
+                });
+            }
+
+            renderAdminBerita();
+            renderDashboardTables();
+            bootstrap.Modal.getInstance(document.getElementById('modalBeritaForm')).hide();
+            showToast("Berita artikel berhasil disimpan!");
+        }
+
+        function approveMember(id) {
+            const pendingIndex = pendaftaranData.findIndex(p => p.id === id);
+            if (pendingIndex > -1) {
+                const item = pendaftaranData[pendingIndex];
+                mediaData.unshift({
+                    id: Date.now(),
+                    name: item.name,
+                    company: item.company,
+                    leader: "Pimpinan Redaksi",
+                    editor: item.editor,
+                    city: item.city,
+                    website: "https://media.co.id",
+                    status: "Anggota Aktif",
+                    logo: "https://placehold.co/100x40/155EAA/FFFFFF?text=" + item.name.substring(0, 5)
+                });
+                pendaftaranData.splice(pendingIndex, 1);
+                renderPendaftaran();
+                renderAdminMedia();
+                renderDashboardTables();
+                showToast(`Pendaftaran ${item.name} berhasil disetujui menjadi Anggota Aktif!`);
+            }
+        }
+
+        function rejectMember(id) {
+            const pendingIndex = pendaftaranData.findIndex(p => p.id === id);
+            if (pendingIndex > -1) {
+                const item = pendaftaranData[pendingIndex];
+                pendaftaranData.splice(pendingIndex, 1);
+                renderPendaftaran();
+                renderDashboardTables();
+                showToast(`Pendaftaran ${item.name} ditolak.`);
+            }
+        }
+
+        let currentDeleteModule = null;
+
+        function confirmDeleteModal(id, module = 'media') {
+            deleteTargetId = id;
+            currentDeleteModule = module;
+            const modal = new bootstrap.Modal(document.getElementById('modalDelete'));
+            modal.show();
+        }
+
+        function executeDelete() {
+            if (deleteTargetId) {
+                if (currentDeleteModule === 'kategori') {
+                    kategoriData = kategoriData.filter(k => k.id !== deleteTargetId);
+                    renderAdminKategori();
+                } else if (currentDeleteModule === 'pengurus') {
+                    pengurusData = pengurusData.filter(p => p.id !== deleteTargetId);
+                    renderAdminPengurus();
+                } else if (currentDeleteModule === 'users') {
+                    userData = userData.filter(u => u.id !== deleteTargetId);
+                    renderAdminUsers();
+                } else if (currentDeleteModule === 'berita') {
+                    beritaData = beritaData.filter(b => b.id !== deleteTargetId);
+                    renderAdminBerita();
+                } else if (currentDeleteModule === 'agenda') {
+                    agendaData = agendaData.filter(a => a.id !== deleteTargetId);
+                    renderAdminAgenda();
+                } else if (currentDeleteModule === 'galeri') {
+                    galeriAdminData = galeriAdminData.filter(g => g.id !== deleteTargetId);
+                    renderAdminGaleri();
+                } else {
+                    mediaData = mediaData.filter(m => m.id !== deleteTargetId);
+                    renderAdminMedia();
+                }
+
+                renderDashboardTables();
+                bootstrap.Modal.getInstance(document.getElementById('modalDelete')).hide();
+                showToast("Data berhasil dihapus.");
+            }
+        }
+
+        function showToast(message) {
+            document.getElementById('toastMessage').textContent = message;
+            const toastElem = document.getElementById('adminToast');
+            const toast = new bootstrap.Toast(toastElem);
+            toast.show();
+        }
+
+        function exportData(type) {
+            showToast(`Meng-export data Media Anggota ke format ${type}... Berhasil di-download.`);
+        }
+
+        function handleSettingsSave(event) {
+            event.preventDefault();
+            showToast("Pengaturan konfigurasi website SMSI Kepri berhasil disimpan!");
+        }
+
+        function refreshDashboardData() {
+            renderDashboardTables();
+            showToast("Data statistik dashboard diperbarui.");
+        }
+
+        function confirmLogout() {
+            if (confirm("Apakah Anda yakin ingin keluar dari Dashboard Admin SMSI Kepri?")) {
+                showToast("Anda telah keluar. Mengalihkan...");
+                setTimeout(() => {
+                    switchView('dashboard');
+                }, 1000);
+            }
+        }
+
+        /* ==========================================================================
+           CHART.JS INITIALIZATION
+           ========================================================================== */
+        function initCharts() {
+            // Chart Media Wilayah
+            const ctxWilayah = document.getElementById('chartMediaWilayah');
+            if (ctxWilayah) {
+                new Chart(ctxWilayah, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Batam', 'Tanjungpinang', 'Karimun', 'Bintan', 'Natuna', 'Anambas', 'Lingga'],
+                        datasets: [{
+                            label: 'Jumlah Media Anggota',
+                            data: [32, 14, 8, 6, 4, 2, 2],
+                            backgroundColor: '#155EAA',
+                            borderRadius: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } }
+                    }
+                });
+            }
+
+            // Chart Berita Bulanan
+            const ctxBerita = document.getElementById('chartBeritaBulanan');
+            if (ctxBerita) {
+                new Chart(ctxBerita, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov'],
+                        datasets: [{
+                            label: 'Jumlah Berita',
+                            data: [8, 12, 10, 15, 14, 18, 20, 16, 22, 25, 12],
+                            borderColor: '#D6A84F',
+                            backgroundColor: 'rgba(214, 168, 79, 0.1)',
+                            fill: true,
+                            tension: 0.3
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } }
+                    }
+                });
+            }
+        }
+
+        /* ==========================================================================
+           INITIALIZATION ON PAGE LOAD
+           ========================================================================== */
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // Sidebar collapse toggle listener
+            const toggleBtn = document.getElementById('sidebar-toggle');
+            const sidebar = document.getElementById('sidebar');
+
+            if (toggleBtn && sidebar) {
+                toggleBtn.addEventListener('click', () => {
+                    if (window.innerWidth < 992) {
+                        sidebar.classList.toggle('show-mobile');
+                    } else {
+                        sidebar.classList.toggle('collapsed');
+                    }
+                });
+            }
+
+            // Initial Renders
+            renderDashboardTables();
+            renderAdminMedia();
+            renderAdminBerita();
+            renderAdminKategori();
+            renderAdminPengurus();
+            renderAdminUsers();
+            renderPendaftaran();
+            renderAdminAgenda();
+            renderAdminGaleri();
+            initCharts();
+        });
+    </script>
+</body>
+</html>
