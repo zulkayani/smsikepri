@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Administrator - SMSI Provinsi Kepulauan Riau</title>
+
+    <!-- Google Fonts: Poppins & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --brand-navy: #102B49;
+            --brand-navy-light: #1a3c63;
+            --brand-blue: #155EAA;
+            --brand-blue-hover: #0e447e;
+            --brand-gold: #D6A84F;
+            --brand-gold-hover: #b88d37;
+            --brand-bg: #F5F7FA;
+            --brand-text: #2D3748;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--brand-navy);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(21, 94, 170, 0.4) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(214, 168, 79, 0.25) 0px, transparent 50%);
+            color: var(--brand-text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        h1, h2, h3, h4, h5, h6, .font-heading {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .login-card {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+            overflow: hidden;
+            max-width: 950px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .login-banner {
+            background: linear-gradient(135deg, rgba(16, 43, 73, 0.95) 0%, rgba(21, 94, 170, 0.9) 100%), 
+                        url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=80') center/cover no-repeat;
+            color: white;
+            padding: 45px 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .login-banner::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--brand-gold);
+        }
+
+        .login-form-wrapper {
+            padding: 45px 35px;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--brand-blue);
+            box-shadow: 0 0 0 0.25rem rgba(21, 94, 170, 0.2);
+        }
+
+        .btn-brand-primary {
+            background-color: var(--brand-blue);
+            color: white;
+            font-weight: 600;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-brand-primary:hover {
+            background-color: var(--brand-blue-hover);
+            color: white;
+            box-shadow: 0 4px 12px rgba(21, 94, 170, 0.35);
+        }
+
+        .preset-badge {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .preset-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <div class="row g-0">
+            <!-- Left Banner Info -->
+            <div class="col-lg-5 login-banner d-none d-lg-flex">
+                <div>
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <svg width="48" height="48" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100" height="100" rx="16" fill="#155EAA"/>
+                            <path d="M20 75L50 25L80 75H65L50 50L35 75H20Z" fill="#D6A84F"/>
+                        </svg>
+                        <div>
+                            <h4 class="font-heading fw-bold mb-0 text-white">SMSI KEPRI</h4>
+                            <small class="text-warning font-heading fw-semibold">Sistem Backend Admin</small>
+                        </div>
+                    </div>
+                    
+                    <h3 class="font-heading fw-bold mb-3">Portal Manajemen Serikat Media Siber Indonesia</h3>
+                    <p class="text-slate-300 small lead-sm" style="line-height: 1.6; color: #cbd5e1;">
+                        Sistem terintegrasi untuk pengelolaan data perusahaan pers media siber anggota, publikasi siaran berita resmi, struktur organisasi, dan verifikasi anggota SMSI Kepulauan Riau.
+                    </p>
+                </div>
+
+                <div class="mt-4 pt-4 border-top border-light border-opacity-25">
+                    <div class="d-flex align-items-center gap-2 text-warning small fw-semibold">
+                        <i class="bi bi-shield-check fs-5"></i>
+                        <span>Koneksi Terenkripsi &amp; Aman</span>
+                    </div>
+                    <small class="text-slate-400 d-block mt-1" style="font-size: 0.75rem; color: #94a3b8;">
+                        &copy; 2026 Pengurus SMSI Provinsi Kepulauan Riau.
+                    </small>
+                </div>
+            </div>
+
+            <!-- Right Login Form -->
+            <div class="col-lg-7">
+                <div class="login-form-wrapper">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <div>
+                            <h3 class="font-heading fw-bold text-navy mb-1" style="color: var(--brand-navy);">Masuk Akun Admin</h3>
+                            <p class="text-muted small mb-0">Silahkan masukkan kredensial akun anda untuk melanjutkan.</p>
+                        </div>
+                        <a href="index.html" class="btn btn-outline-secondary btn-sm rounded-pill text-nowrap d-none d-sm-inline-block">
+                            <i class="bi bi-house me-1"></i> Website Utama
+                        </a>
+                    </div>
+
+                    <!-- Alert Notification Box -->
+                    <div id="loginAlert" class="alert alert-danger d-none align-items-center gap-2 py-2 small" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill flex-shrink-0 fs-5"></i>
+                        <div id="alertMessage">Email atau kata sandi tidak sesuai.</div>
+                    </div>
+
+                    <form id="loginForm" onsubmit="handleLoginSubmit(event)">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small">Email Administrator</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light text-muted"><i class="bi bi-envelope"></i></span>
+                                <input type="email" id="loginEmail" class="form-control" placeholder="admin@smsikepri.or.id" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <label class="form-label fw-semibold small mb-0">Kata Sandi (Password)</label>
+                                <a href="javascript:void(0)" onclick="openForgotPassword()" class="text-decoration-none small text-primary">Lupa Kata Sandi?</a>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light text-muted"><i class="bi bi-lock"></i></span>
+                                <input type="password" id="loginPassword" class="form-control" placeholder="••••••••" required>
+                                <button class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisibility()" id="btnTogglePass">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="rememberMe">
+                                <label class="form-check-label small text-secondary" for="rememberMe">
+                                    Ingat saya di perangkat ini
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" id="btnLoginSubmit" class="btn btn-brand-primary w-100 mb-4">
+                            <span id="btnText"><i class="bi bi-box-arrow-in-right me-1"></i> Masuk Ke Dashboard</span>
+                            <span id="btnSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                        </button>
+                    </form>
+
+                    <div class="text-center mt-4 d-lg-none">
+                        <a href="index.html" class="text-decoration-none small text-secondary">
+                            <i class="bi bi-arrow-left me-1"></i> Kembali ke Website Utama SMSI Kepri
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FORGOT PASSWORD SIMULATION -->
+    <div class="modal fade" id="modalForgotPass" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-header bg-navy text-white py-3" style="background-color: var(--brand-navy);">
+                    <h6 class="modal-title font-heading fw-bold">Reset Kata Sandi</h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 text-center">
+                    <i class="bi bi-envelope-at text-primary display-4 mb-2"></i>
+                    <p class="small text-muted mb-3">Masukkan email administrator terdaftar anda untuk menerima tautan reset kata sandi.</p>
+                    <form onsubmit="handleForgotSubmit(event)">
+                        <input type="email" id="forgotEmail" class="form-control form-control-sm mb-3" required placeholder="nama@smsikepri.or.id">
+                        <button type="submit" class="btn btn-primary btn-sm w-100">Kirim Tautan Reset</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function togglePasswordVisibility() {
+            const passInput = document.getElementById('loginPassword');
+            const btnIcon = document.querySelector('#btnTogglePass i');
+            if (passInput.type === 'password') {
+                passInput.type = 'text';
+                btnIcon.className = 'bi bi-eye-slash';
+            } else {
+                passInput.type = 'password';
+                btnIcon.className = 'bi bi-eye';
+            }
+        }
+
+        function handleLoginSubmit(event) {
+            event.preventDefault();
+
+            const emailInput = document.getElementById('loginEmail');
+            const passwordInput = document.getElementById('loginPassword');
+            const email = emailInput ? emailInput.value.trim() : '';
+            const password = passwordInput ? passwordInput.value.trim() : '';
+            
+            const alertBox = document.getElementById('loginAlert');
+            const alertMsg = document.getElementById('alertMessage');
+            const btnText = document.getElementById('btnText');
+            const btnSpinner = document.getElementById('btnSpinner');
+            const btnSubmit = document.getElementById('btnLoginSubmit');
+
+            // Pre-validation check to prevent empty string location navigation
+            if (!email || !password) {
+                alertMsg.textContent = "Silakan lengkapi seluruh kolom email dan kata sandi!";
+                alertBox.classList.remove('d-none');
+                alertBox.classList.add('d-flex');
+                return;
+            }
+
+            // Show loading state
+            btnSubmit.disabled = true;
+            btnText.textContent = "Memverifikasi...";
+            btnSpinner.classList.remove('d-none');
+            alertBox.classList.add('d-none');
+            alertBox.classList.remove('d-flex');
+
+            setTimeout(() => {
+                // Target dashboard URL string
+                const targetUrl = 'admin.html';
+                
+                if (targetUrl && targetUrl.trim() !== '') {
+                    window.location.href = targetUrl;
+                } else {
+                    btnSubmit.disabled = false;
+                    btnText.innerHTML = '<i class="bi bi-box-arrow-in-right me-1"></i> Masuk Ke Dashboard';
+                    btnSpinner.classList.add('d-none');
+
+                    alertMsg.textContent = "Terjadi kesalahan rute halaman. Silakan coba lagi.";
+                    alertBox.classList.remove('d-none');
+                    alertBox.classList.add('d-flex');
+                }
+            }, 800);
+        }
+
+        function openForgotPassword() {
+            const modal = new bootstrap.Modal(document.getElementById('modalForgotPass'));
+            modal.show();
+        }
+
+        function handleForgotSubmit(event) {
+            event.preventDefault();
+            const email = document.getElementById('forgotEmail').value;
+            alert(`Tautan instruksi pemulihan kata sandi telah dikirimkan ke email: ${email}`);
+            bootstrap.Modal.getInstance(document.getElementById('modalForgotPass')).hide();
+        }
+    </script>
+</body>
+</html>
